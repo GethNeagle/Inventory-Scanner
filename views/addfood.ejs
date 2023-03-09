@@ -28,6 +28,18 @@
     <script src="https://unpkg.com/@zxing/library@0.22.0"></script>
 
     <script>
+      // Request access to the camera
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function(stream) {
+          // Display the video in the HTML document
+          var video = document.querySelector('#video');
+          video.srcObject = stream;
+          video.play();
+        })
+        .catch(function(error) {
+          console.error('Could not access camera', error);
+        });
+
       // Create a barcode scanner instance
       const codeReader = new ZXing.BrowserBarcodeReader();
 
