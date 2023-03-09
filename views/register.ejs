@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+  <a href="/">Home</a>
+  <a href="about">About </a>
+  <a href="search">Search Food</a>
+  <a href="addfood">Add A Food</a>
+  <a href="listall">List Foods</a>
+  <a href="register">Register</a>
+  <a href="login">Login Page</a>
+  <a href="logout">Log Out</a>
+  <a href="api">Food API</a>
+  <title>Register for <%=shopName%></title>
+  <link rel="stylesheet"  type="text/css" href="main.css" />
+
+</head>
+
+
+<body>
+  <h1>Register for <%=shopName%></h1>
+  <form method="POST" action="/registered">
+      <p>Username: <input id="username" type="text" name="username" value="" /></p>
+      <p>First Name: <input id="first" type="text" name="first" value="" /></p>
+      <p>Last Name: <input id="last" type="text" name="last" value="" /></p>
+      <p>Email: <input id="email" type="text" name="email" value="" /></p>
+      <p>Password: <input id="password" type="text" name="password" value="" /></p>
+      <input type="submit" value="Register" />
+    </form>
+
+
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+  <head>
+    <a href="/">Home</a>
+    <a href="about">About </a>
+    <a href="search">Search Food</a>
+    <a href="addfood">Add A Food</a>
+    <a href="listall">List Foods</a>
+    <a href="register">Register</a>
+    <a href="login">Login Page</a>
+    <a href="logout">Log Out</a>
+    <a href="api">Food API</a>
+    <title>Login to <%=shopName%></title>
+    <link rel="stylesheet"  type="text/css" href="main.css" />
+
+    <title></title>
+    <link rel="stylesheet"  type="text/css" href="main.css" />
+  </head>
+  <body>
+    <h1>Login to</h1>
+    <form action="/loggedin" method="post">
+        <p>Username: <input id="username" type="text" name="username" value="" /></p>
+        <p>Password: <input id="password" type="password" name="password" value="" /></p>
+        <input type="submit" value="Login" />
+      </form>
+  </body>
+</html>
