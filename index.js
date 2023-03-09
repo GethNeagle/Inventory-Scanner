@@ -32,7 +32,7 @@ const db = mysql.createConnection ({
     host: 'localhost',
     user: 'appuser',
     password: 'app2027',
-    database: 'recipeBuddy'
+    database: 'inventorydb'
 });
 // Connect to the database
 db.connect((err) => {
