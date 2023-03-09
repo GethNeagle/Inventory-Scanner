@@ -30,6 +30,7 @@
     "quagga": "^0.12.1",
     "reader": "0.0.8",
     "request": "^2.88.2",
-    "socket.io": "^4.6.1"
+    "socket.io": "^4.6.1",
+    "zxing": "^0.1.2"
   }
 }
