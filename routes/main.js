@@ -9,10 +9,14 @@ module.exports = function(app, shopData) {
 
     // Handle our routes
     app.get('/',function(req,res){
-        res.render('index.ejs', shopData)
+        res.render('login.ejs', shopData)
     });
     app.get('/about',function(req,res){
         res.render('about.ejs', shopData);
+    });
+
+    app.get('/index',function(req,res){
+        res.render('index.ejs', shopData);
     });
 
     app.get('/search',function(req,res){
@@ -195,32 +199,29 @@ module.exports = function(app, shopData) {
     });
 
     //WHen user has enetered details, will check if correct and log in user.
-    app.post('/loggedin', (req, res)=> {
+    app.post('/loggedin', (req, res) => {
         const bcrypt = require('bcryptjs');
         const username = req.body.username;
         const password = req.body.password;
         db.query('SELECT hashedPassword FROM users WHERE username = ?', [username], function (err, content, fields) {
-              //Throws error if any errors during excecution.
-              if (err) throw err;
-              // if there is no error, produces result.
-              hashedPassword = content[0].hashedPassword;
-              bcrypt.compare(req.body.password, hashedPassword, function(err, result) {
-                if (err) {
-                    res.send("Password does not match");
-                }
-                else if (result == true) {
-                    //sets variabel to true, will allow access to otherwise limited pages      
-                    req.session.loggedin = true;
-                    console.log(req.session.loggedin);//to print to console that 'login' worked
-				    req.session.username = username;
-                    res.redirect('about');//sends users back to index
-                }
-                else {
-                    res.send("Your Username or Password are incorrect");
-                }
+          if (err) {
+            res.status(500).json({ message: 'An error occurred while processing your request.' });
+          } else if (content.length === 0) {
+            res.status(401).json({ message: 'Your Username or Password are incorrect.' });
+          } else {
+            const hashedPassword = content[0].hashedPassword;
+            bcrypt.compare(password, hashedPassword, function(err, result) {
+              if (result) {
+                req.session.loggedin = true;
+                req.session.username = username;
+                res.status(200).json({ message: 'Login successful.' });
+              } else {
+                res.status(401).json({ message: 'Your Username or Password are incorrect.' });
+              }
             });
+          }
         });
-    });
+      });
 
 
 

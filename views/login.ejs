@@ -1,27 +1,67 @@
 <!doctype html>
 <html>
   <head>
-    <a href="/">Home</a>
-    <a href="about">About </a>
-    <a href="search">Search Food</a>
-    <a href="addfood">Add A Food</a>
-    <a href="listall">List Foods</a>
-    <a href="register">Register</a>
-    <a href="login">Login Page</a>
-    <a href="logout">Log Out</a>
-    <a href="api">Food API</a>
-    <title>Login to <%=shopName%></title>
-    <link rel="stylesheet"  type="text/css" href="main.css" />
-
-    <title></title>
-    <link rel="stylesheet"  type="text/css" href="main.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - <%=shopName%></title>
+    <link rel="stylesheet" type="text/css" href="main.css" />
   </head>
   <body>
-    <h1>Login to</h1>
-    <form action="/loggedin" method="post">
-        <p>Username: <input id="username" type="text" name="username" value="" /></p>
-        <p>Password: <input id="password" type="password" name="password" value="" /></p>
-        <input type="submit" value="Login" />
-      </form>
+    <header>
+      <nav>
+      </nav>
+    </header>
+
+    <main>
+      <div class="login-container">
+        <h1>Login</h1>
+        <form id="login-form" method="POST" action="/loggedin">
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="username" id="username" name="username" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+          </div>
+          <button type="submit">Login</button>
+        </form>
+        <div id="message-box" style="display:none;"></div>
+        <div class="register-link">
+          <p>Don't have an account yet? <a href="/register">Register here</a></p>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      document.getElementById('login-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        
+        fetch('/loggedin', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, password })
+        })
+        .then(response => {
+          if (response.status === 200) {
+            window.location.href = '/index';
+          } else {
+            response.text().then(text => {
+              const messageBox = document.getElementById('message-box');
+              messageBox.style.display = 'block';
+              messageBox.textContent = text;
+            });
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('An error occurred. Please try again later.');
+        });
+      });
+    </script>
+    
   </body>
 </html>
