@@ -227,12 +227,12 @@ module.exports = function(app, shopData) {
 
     //renders addfood page
     app.get('/addfood', function (req, res) {
-        if (req.session.loggedin){
+        //if (req.session.loggedin){
             res.render('addfood.ejs', shopData);
-        }else{
+        //}else{
             //if no users logged in, will prompt user to log in
-            res.send("Please log in");
-        }
+        //    res.send("Please log in");
+       // }
      });
 
      app.get('/updatefood', function (req,res) {

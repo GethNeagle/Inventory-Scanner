@@ -28,11 +28,18 @@
     <script src="https://unpkg.com/@zxing/library@0.22.0"></script>
 
     <script>
-      // Request access to the camera
-      navigator.mediaDevices.getUserMedia({ video: true })
+      // Get the video element and set the constraints for the media stream
+      const video = document.getElementById('video');
+      const constraints = {
+        audio: false,
+        video: {
+          facingMode: 'environment'
+        }
+      };
+
+      // Request access to the camera and attach the stream to the video element
+      navigator.mediaDevices.getUserMedia(constraints)
         .then(function(stream) {
-          // Display the video in the HTML document
-          var video = document.querySelector('#video');
           video.srcObject = stream;
           video.play();
         })
@@ -41,7 +48,8 @@
         });
 
       // Create a barcode scanner instance
-      const codeReader = new ZXing.BrowserBarcodeReader();
+      const codeReader = new ZXing.BrowserBarco
+      eReader();
 
       // Attach an event listener to the Scan Barcode button
       const scanButton = document.getElementById('scanButton');
