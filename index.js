@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyparser.json())
 
 // Set up css
-app.use(express.static(__dirname + '/public'));
+app.use(express.static('public'));
 app.use(session({
 	secret: 'secret',
 	resave: true,
