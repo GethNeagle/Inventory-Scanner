@@ -1,33 +1,52 @@
 <!doctype html>
 <html>
 <head>
-  <a href="/">Home</a>
-  <a href="about">About </a>
-  <a href="search">Search Food</a>
-  <a href="addfood">Add A Food</a>
-  <a href="listall">List Foods</a>
-  <a href="register">Register</a>
-  <a href="login">Login Page</a>
-  <a href="logout">Log Out</a>
-  <a href="api">Food API</a>
   <title>Register for <%=shopName%></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet"  type="text/css" href="main.css" />
-
 </head>
-
 
 <body>
   <h1>Register for <%=shopName%></h1>
-  <form method="POST" action="/registered">
-      <p>Username: <input id="username" type="text" name="username" value="" /></p>
-      <p>First Name: <input id="first" type="text" name="first" value="" /></p>
-      <p>Last Name: <input id="last" type="text" name="last" value="" /></p>
-      <p>Email: <input id="email" type="text" name="email" value="" /></p>
-      <p>Password: <input id="password" type="text" name="password" value="" /></p>
-      <input type="submit" value="Register" />
-    </form>
+  
+  <main>
+    <div class="login-container">
+      <h1>Login</h1>
+      <form id="login-form" method="POST" action="/registered">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="username" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+          <label for="first">First:</label>
+          <input type="first" id="text" name="first" required>
+        </div>
+        <div class="form-group">
+          <label for="last">Last:</label>
+          <input type="last" id="text" name="last" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="text" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+      <div id="message-box" style="display:none;"></div>
 
-
-
+    </div>
+  </main>
+  
+  <!-- <form method="POST" action="/registered">
+    <p>Username: <input id="username" type="text" name="username" value="" /></p>
+    <p>First Name: <input id="first" type="text" name="first" value="" /></p>
+    <p>Last Name: <input id="last" type="text" name="last" value="" /></p>
+    <p>Email: <input id="email" type="text" name="email" value="" /></p>
+    <p>Password: <input id="password" type="password" name="password" value="" /></p>
+    <input type="submit" value="Register" />
+  </form> -->
 </body>
 </html>
