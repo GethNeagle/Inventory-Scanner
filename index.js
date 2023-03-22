@@ -1,6 +1,6 @@
 
 // Import the modules we need
-var express = require ('express')
+const express = require ('express')
 var ejs = require('ejs')
 var bodyParser= require ('body-parser')
 const mysql = require('mysql');

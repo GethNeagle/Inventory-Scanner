@@ -1,5 +1,5 @@
 const barcode = require('barcode');
-const e = require('express');
+const session = require('express-session');
 //test
 //required for validation
 const { check, validationResult }
