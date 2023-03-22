@@ -47,7 +47,7 @@
         })
         .then(response => {
           if (response.status === 200) {
-            window.location.href = '/index1';
+            window.location.href = '/index';
           } else {
             response.text().then(text => {
               const messageBox = document.getElementById('message-box');

@@ -15,8 +15,8 @@ module.exports = function(app, shopData) {
         res.render('about.ejs', shopData);
     });
 
-    app.get('/index1',function(req,res){
-        res.render('index1.ejs', shopData);
+    app.get('/index',function(req,res){
+        res.render('index.ejs', shopData);
     });
 
     app.get('/search',function(req,res){
