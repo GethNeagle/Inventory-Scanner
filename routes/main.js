@@ -201,7 +201,8 @@ module.exports = function(app, shopData) {
         const password = req.body.password;
         db.query('SELECT hashedPassword FROM users WHERE username = ?', [username], function (err, content, fields) {
           if (err) {
-            res.status(500).json({ message: 'An error occurred while processing your request.' });
+            console.error(err);
+            res.status(500).json({ message: 'An error occurred while processing your request.', error: err.message });
           } else if (content.length === 0) {
             res.status(401).json({ message: 'Your Username or Password are incorrect.' });
           } else {
