@@ -90,10 +90,6 @@ module.exports = function(app, shopData) {
     app.post('/registered',[
         check('username', 'Username should be more than 4 characters')//checks username is longer than 4 chars
                     .isLength({ min: 4, max: 30 }),
-        check('first', 'First name length should be more than')//checks first name is longer than 2 chars
-                    .isLength({ min: 2, max: 50 }),
-        check('last', 'Last name should be more than 2 characters')
-                    .isLength({ min: 2, max: 50 }),
         check('email', 'Email should be more than 8 characters')//checks email is an email
                     .isEmail().isLength({ min: 8, max: 50 }),
         check('password', 'Password length should be 8 to 10 characters')//checks password is at least 8 chars long
@@ -106,8 +102,8 @@ module.exports = function(app, shopData) {
         //hashing the password
         bcrypt.hash(plainPassword, saltRounds, function(err, hashedPassword) { 
             console.log(hashedPassword);
-            let sqlquery = "INSERT INTO users (username, first, last, email, hashedPassword) VALUES (?,?,?,?,?)";
-            let newrecord = [req.body.username, req.body.first, req.body.last, req.body.email, hashedPassword];
+            let sqlquery = "INSERT INTO users (username, hashedPassword, email) VALUES (?,?,?,?,?)";
+            let newrecord = [req.body.username, hashedPassword, req.body.email];
             const errors = validationResult(req);//validation happens here
             if (!errors.isEmpty()){
                 res.json(errors)//prints any errors with validation the to screen
