@@ -215,6 +215,7 @@ module.exports = function(app, shopData) {
                 req.session.loggedin = true;
                 req.session.username = username;
                 res.status(200).json({ message: 'Login successful.' });
+                //res.render('index.ejs');
               } else {
                 res.status(401).json({ message: 'Your Username or Password are incorrect.' });
               }
