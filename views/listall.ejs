@@ -3,15 +3,15 @@
   <head>
     <a href="/">Home</a>
     <a href="about">About </a>
-    <a href="search">Search Food</a>
-    <a href="addfood">Add A Food</a>
-    <a href="listall">List Foods</a>
+    <a href="search">Search items</a>
+    <a href="additems">Add A items</a>
+    <a href="listall">List itemss</a>
     <a href="register">Register</a>
     <a href="login">Login Page</a>
     <a href="logout">Log Out</a>
-    <a href="api">Food API</a>
+    <a href="api">items API</a>
     </ul>
-    <title>Foods on <%=shopName%></title>
+    <title>itemss on <%=shopName%></title>
     <link rel="stylesheet"  type="text/css" href="main.css" />
   <style>
   </style>
@@ -20,13 +20,13 @@
   </head>
   <body>
     <h1><%=shopName%> Shop</h1>
-    <h2>Here are the foods we have information on:</h2>
+    <h2>Here are the itemss we have information on:</h2>
     <ul class="nav">
-      <% availableFoods.forEach(function(food) { %>
-          <br>Name:<%=food.name %>
-          <br>quantity:<%=food.quantity%>
-          <br>price:<%=food.price%>
-          <br>barcodeid:<%=food.barcodeid%>
+      <% availableitemss.forEach(function(items) { %>
+          <br>Name:<%=items.name %>
+          <br>quantity:<%=items.quantity%>
+          <br>price:<%=items.price%>
+          <br>barcodeid:<%=items.barcodeid%>
 
           <br>
       <% }) %>

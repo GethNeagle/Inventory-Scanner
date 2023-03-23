@@ -3,15 +3,15 @@
   <head>
     <a href="/">Home</a>
     <a href="about">About </a>
-    <a href="search">Search Food</a>
-    <a href="addfood">Add A Food</a>
-    <a href="listall">List Foods</a>
+    <a href="search">Search items</a>
+    <a href="additems">Add A items</a>
+    <a href="listall">List itemss</a>
     <a href="register">Register</a>
     <a href="login">Login Page</a>
     <a href="logout">Log Out</a>
-    <a href="api">Food API</a>
+    <a href="api">items API</a>
     </ul>
-    <title>Foods on <%=shopName%></title>
+    <title>itemss on <%=shopName%></title>
     <link rel="stylesheet"  type="text/css" href="main.css" />
   <style>
 
@@ -21,17 +21,17 @@
   </head>
   <body>
     <h1><%=shopName%> Shop</h1>
-    <h2>Here are the foods we have information on:</h2>
+    <h2>Here are the itemss we have information on:</h2>
     <ul class="nav">
-      <form action="/updatefood" method="GET">
+      <form action="/updateitems" method="GET">
       
-      <% availableFoods.forEach(function(food) { %>
-          <br>Name:<input id="name" type="text" name="name" value="<%=food.name%>">
-          <br>quantity:<input id="quantity" type="text" name="quantity" value="<%=food.quantity%>">
-          <br>price of Measure:<input id="price" type="text" name="price" value="<%=food.price%>">
-          <br> Carbohydrates:<input id="barcodeid" type="text" name="barcodeid" value="<%=food.barcodeid%>">
+      <% availableitemss.forEach(function(items) { %>
+          <br>Name:<input id="name" type="text" name="name" value="<%=items.name%>">
+          <br>quantity:<input id="quantity" type="text" name="quantity" value="<%=items.quantity%>">
+          <br>price of Measure:<input id="price" type="text" name="price" value="<%=items.price%>">
+          <br> Carbohydrates:<input id="barcodeid" type="text" name="barcodeid" value="<%=items.barcodeid%>">
 
-          <br> Added by User:<%=food.user%>
+          <br> Added by User:<%=items.user%>
       <% }) %>
       
       <input type="submit" value="Update" >

@@ -24,16 +24,16 @@ module.exports = function(app, shopData) {
     });
     app.get('/search-result', function (req, res) {
         //searching in the database
-        let sqlquery = "SELECT * FROM food WHERE name LIKE '%" + req.query.keyword + "%'"; // query database to get all the foods
+        let sqlquery = "SELECT * FROM items WHERE name LIKE '%" + req.query.keyword + "%'"; // query database to get all the itemss
         // execute sql query
         db.query(sqlquery, (err, result) => {
             if (err) {
                 res.redirect('./'); 
             }
             //if no errors
-            let newData = Object.assign({}, shopData, {availableFoods:result});
+            let newData = Object.assign({}, shopData, {availableitemss:result});
             console.log(JSON.stringify(req.body.keyword))
-            if (newData.availableFoods.length > 0 && req.query.keyword.length > 0 ){
+            if (newData.availableitemss.length > 0 && req.query.keyword.length > 0 ){
                 res.render('list.ejs', newData)
 
             }else{
@@ -44,13 +44,13 @@ module.exports = function(app, shopData) {
     });
 
     app.get('/listall', function(req, res) {
-        let sqlquery = "SELECT * FROM food"; // query database to get all the foods
+        let sqlquery = "SELECT * FROM items"; // query database to get all the itemss
         // execute sql query
         db.query(sqlquery, (err, result) => {
             if (err) {
                 res.redirect('./'); 
             }
-            let newData = Object.assign({}, shopData, {availableFoods:result});
+            let newData = Object.assign({}, shopData, {availableitemss:result});
             console.log(newData)
             res.render('listall.ejs', newData)
             //res.json({newData})
@@ -61,16 +61,16 @@ module.exports = function(app, shopData) {
         //searching in the database
         //res.send("You searched for: " + req.query.keyword);
         console.log(req.body.example);
-        let sqlquery = "SELECT * FROM food WHERE name LIKE '%" + req.body.example+ "%'"; // query database to get all the foods
+        let sqlquery = "SELECT * FROM items WHERE name LIKE '%" + req.body.example+ "%'"; // query database to get all the itemss
         // execute sql query
         db.query(sqlquery, (err, result) => {
             if (err) {
                 res.redirect('./'); 
             }
             //if no errors
-            let newData = Object.assign({}, shopData, {availableFoods:result});
+            let newData = Object.assign({}, shopData, {availableitemss:result});
             console.log(JSON.stringify(req.body.keyword))
-            if (newData.availableFoods.length > 0){
+            if (newData.availableitemss.length > 0){
                 res.render('list2.ejs', newData)
 
             }else{
@@ -126,7 +126,7 @@ module.exports = function(app, shopData) {
     });
 
 
-    //renders the Food API
+    //renders the items API
     app.get('/api', function (req,res) {
         res.render('api.ejs', shopData);                                                                     
     });
@@ -135,18 +135,18 @@ module.exports = function(app, shopData) {
 
 
 
-    //Shows list of foods in JSON format
-    //  "/foodapi?keyword=cream" will bring information for 'cream' in JSON format. 
-    app.get('/foodapi', function (req, res) {
+    //Shows list of itemss in JSON format
+    //  "/itemsapi?keyword=cream" will bring information for 'cream' in JSON format. 
+    app.get('/itemsapi', function (req, res) {
         //searching in the database
-        let sqlquery = "SELECT * FROM food WHERE name LIKE '%" + req.query.keyword + "%'"; // query database to get all the food
+        let sqlquery = "SELECT * FROM items WHERE name LIKE '%" + req.query.keyword + "%'"; // query database to get all the items
         // execute sql query
         db.query(sqlquery, (err, result) => {
             if (err) {
                 res.redirect('./'); 
             }
             //if no errors
-            let newData = Object.assign({}, shopData, {availableFoods:result});
+            let newData = Object.assign({}, shopData, {availableitemss:result});
             console.log(newData)
             res.json({newData})
          });        
@@ -227,23 +227,23 @@ module.exports = function(app, shopData) {
 
 
 
-    //renders addfood page
-    app.get('/addfood', function (req, res) {
+    //renders additems page
+    app.get('/additems', function (req, res) {
         //if (req.session.loggedin){
-            res.render('addfood.ejs', shopData);
+            res.render('additems.ejs', shopData);
         //}else{
             //if no users logged in, will prompt user to log in
         //    res.send("Please log in");
        // }
      });
 
-     app.get('/updatefood', function (req,res) {
+     app.get('/updateitems', function (req,res) {
         var name = req.body.name;
         var quantity = req.body.quantity;
         var price = req.body.price;
         var barcodeid = req.body.barcodeid;
         // saving data in database
-        let sqlquery = "UPDATE food SET quantity = '" + req.query.quanity +
+        let sqlquery = "UPDATE items SET quantity = '" + req.query.quanity +
          "', price = '" + req.query.price +
          "', barcodeid = '" +req.query.barcodeid +
          "' WHERE name = '" + req.query.name + "' AND user = '"+ req.session.username +"'";
@@ -258,14 +258,14 @@ module.exports = function(app, shopData) {
             res.send("Only original user can change values.");
           }
           else
-          //sends data for the list of food
+          //sends data for the list of items
           res.send(req.query.name+' Has been updated');
           });
     }); 
  
-     app.post('/foodadded', function (req,res) {
+     app.post('/itemsadded', function (req,res) {
            // saving data in database
-           let sqlquery = "INSERT INTO food (name, quantity, price, barcodeid, user) VALUES (?,?,?,?,?)";
+           let sqlquery = "INSERT INTO items (name, quantity, price, barcodeid, user) VALUES (?,?,?,?,?)";
            // execute sql query
             var user = req.session.username;
             var name = req.body.name;
@@ -280,8 +280,8 @@ module.exports = function(app, shopData) {
                return console.error(err.message);
              }
              else
-             //sends data for th elist of food
-             res.send(' This food is added to database, name: '+ req.body.name);
+             //sends data for th elist of items
+             res.send(' This items is added to database, name: '+ req.body.name);
              });
        });    
 
@@ -293,10 +293,10 @@ module.exports = function(app, shopData) {
             res.send("Please log in");
         }
      });
-     //method to delete a food. 
+     //method to delete a items. 
     app.post('/deleted', function(req, res) {
         console.log(req.body.name);
-          let sqlquery = 'DELETE FROM food WHERE name = ?';
+          let sqlquery = 'DELETE FROM items WHERE name = ?';
           ///sql to delete the user.
           db.query(sqlquery, function (err, data) {
           if (err) throw err;
