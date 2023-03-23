@@ -102,7 +102,7 @@ module.exports = function(app, shopData) {
         //hashing the password
         bcrypt.hash(plainPassword, saltRounds, function(err, hashedPassword) { 
             console.log(hashedPassword);
-            let sqlquery = "INSERT INTO users (username, hashedPassword, email) VALUES (?,?,?,?,?)";
+            let sqlquery = "INSERT INTO users (username, hashedPassword, email) VALUES (?,?,?)";
             let newrecord = [req.body.username, hashedPassword, req.body.email];
             const errors = validationResult(req);//validation happens here
             if (!errors.isEmpty()){
