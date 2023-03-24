@@ -128,6 +128,16 @@ module.exports = function(app, shopData) {
         res.render('api.ejs', shopData);                                                                     
     });
 
+    app.get('/get_item_name', (req, res) => {
+        const barcode = req.query.barcode_id;
+        const query = `SELECT name FROM items WHERE barcode_id = ${db.escape(barcode)}`;
+    
+        db.query(query, (err, result) => {
+            if (err) throw err;
+            res.send(result[0] ? result[0].name : '');
+        });
+    });
+
 
 
 
