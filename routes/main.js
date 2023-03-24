@@ -254,7 +254,7 @@ module.exports = function(app, shopData) {
         let sqlquery = "UPDATE items SET quantity = '" + req.query.quanity +
          "', price = '" + req.query.price +
          "', barcode_id = '" +req.query.barcode_id +
-         "' WHERE name = '" + req.query.name + "' AND user = '"+ req.session.username +"'";
+         "' WHERE name = '" + req.query.name; 
          console.log(sqlquery);
         // execute sql query
 
@@ -273,9 +273,8 @@ module.exports = function(app, shopData) {
  
      app.post('/itemsadded', function (req,res) {
            // saving data in database
-           let sqlquery = "INSERT INTO items (name, quantity, price, barcode_id, user) VALUES (?,?,?,?,?)";
+           let sqlquery = "INSERT INTO items (name, quantity, price, barcode_id) VALUES (?,?,?,?)";
            // execute sql query
-            var user = req.session.username;
             var name = req.body.name;
             var quantity = req.body.quantity;
             var price = req.body.price;
