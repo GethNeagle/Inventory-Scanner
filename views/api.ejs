@@ -60,53 +60,38 @@
     </style>
 </head>
 <body>
-
-
     <h1>Enter Item Details</h1>
     <form action="/submit" method="POST">
         <label for="barcode_id">Barcode ID:</label>
         <input type="text" id="barcode_id" name="barcode_id" required>
         <label for="name">Item Name:</label>
-        <input type="text" id="name" name="name" value="<?php echo $itemName; ?>" required>
+        <input type="text" id="name" name="name" required>
         <label for="quantity">Quantity:</label>
         <input type="number" id="quantity" name="quantity" required>
         <button type="submit">Submit</button>
     </form>
 
-    <!-- <script>
+    <script>
         // Get the barcode ID input field
         var barcodeInput = document.getElementById("barcode_id");
-    
+
         // Add an event listener to the barcode ID input field
         barcodeInput.addEventListener("change", function() {
             // Get the barcode ID value
             var barcode_id = barcodeInput.value;
-    
-            // Send an AJAX request to the PHP file
+
+            // Send an AJAX request to the server to get the item name for the barcode ID
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
-                    // Parse the JSON response and set the item name value
-                    var response = JSON.parse(xhr.responseText);
+                    // Update the item name input field with the returned name
                     var itemNameInput = document.getElementById("name");
-                    itemNameInput.value = response.name;
+                    itemNameInput.value = xhr.responseText;
                 }
             };
             xhr.open("GET", "get_item_name.php?barcode_id=" + barcode_id, true);
             xhr.send();
         });
-    </script> -->
-    <script>
-        // Simulate an AJAX request to get the item name for a barcode ID
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                console.log(xhr.responseText);
-            }
-        };
-        xhr.open("GET", "get_item_name.php?barcode_id=1", true);
-        xhr.send();
     </script>
 </body>
 </html>
-    
