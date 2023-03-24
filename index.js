@@ -72,7 +72,7 @@ app.get('/api/items/:barcode_id', (req, res) => {
     const barcode_id = req.params.barcode_id;
   
     // Lookup the item name in the database using the barcode ID
-    connection.query(`SELECT name FROM items WHERE barcode_id = '${barcode_id}'`, (error, results, fields) => {
+    db.query(`SELECT name FROM items WHERE barcode_id = '${barcode_id}'`, (error, results, fields) => {
       if (error) {
         console.error(error);
         res.status(500).send('Internal server error');
