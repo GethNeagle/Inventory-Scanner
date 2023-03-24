@@ -280,7 +280,7 @@ module.exports = function(app, shopData) {
             var price = req.body.price;
             var barcode_id = req.body.barcode_id;
 
-           let newrecord = [name, quantity ,price, barcode_id];
+           let newrecord = [name, quantity ,price, barcode_id ];
            //query database
            db.query(sqlquery, newrecord, (err, result) => {
              if (err) {
