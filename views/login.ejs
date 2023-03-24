@@ -43,7 +43,7 @@
     const password = document.getElementById('password').value;
 
     try {
-      const response = await fetch('/loggedin', {
+      const response = await fetch('loggedin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -1,27 +1,85 @@
-<!doctype html>
-<html>
-  <head>
-    <a href="/">Home</a>
-    <a href="about">About </a>
-    <a href="search">Search items</a>
-    <a href="additems">Add A items</a>
-    <a href="listall">List itemss</a>
-    <a href="register">Register</a>
-    <a href="login">Login Page</a>
-    <a href="logout">Log Out</a>
-    <a href="api">items API</a>
-    <title>Register for <%=shopName%></title>
-    <link rel="stylesheet"  type="text/css" href="main.css" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barcode Scanner</title>
+    <style>
+        /* Add some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            padding: 20px;
+        }
 
-    <title>Search <%=shopName%></title>
-    <link rel="stylesheet"  type="text/css" href="main.css" />
-  </head>
-  <body>
-    <h1>Search <%=shopName%></h1>
-    <form action="/itemsapi" method="GET">
-      <p>What book do you want?</p>
-      <input id="search-box" type="text" name="keyword" value="">
-      <input type="submit" value="Search" >
+        label, input[type="submit"] {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="number"]::-webkit-inner-spin-button, 
+        input[type="number"]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        
+        /* Add styling for the number pad */
+        .number-pad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            grid-gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .number-pad button {
+            font-size: 24px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .number-pad button:hover {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enter Item Details</h1>
+    <form action="/submit" method="POST">
+        <label for="barcodeid">Barcode ID:</label>
+        <input type="text" id="barcodeid" name="barcodeid" required><br><br>
+        <label for="name">Item Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" required><br><br>
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" step="0.01" required><br><br>
+        
+        <!-- Add the number pad -->
+        <div class="number-pad">
+            <button type="button" onclick="addToInput('1')">1</button>
+            <button type="button" onclick="addToInput('2')">2</button>
+            <button type="button" onclick="addToInput('3')">3</button>
+            <button type="button" onclick="addToInput('4')">4</button>
+            <button type="button" onclick="addToInput('5')">5</button>
+            <button type="button" onclick="addToInput('6')">6</button>
+            <button type="button" onclick="addToInput('7')">7</button>
+            <button type="button" onclick="addToInput('8')">8</button>
+            <button type="button" onclick="addToInput('9')">9</button>
+            <button type="button" onclick="addToInput('0')">0</button>
+        </div>
+        
+        <button type="submit">Submit</button>
     </form>
-  </body>
+
+    <script>
+        // Add functionality to the number pad
+        function addToInput(num) {
+            document.activeElement.value += num;
+        }
+    </script>
+</body>
 </html>
