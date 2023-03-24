@@ -80,6 +80,7 @@ module.exports = function(app, shopData) {
          });        
     });
 
+
     //gets the register page
     app.get('/register', function (req,res) {
         res.render('register.ejs', shopData);                                                                     

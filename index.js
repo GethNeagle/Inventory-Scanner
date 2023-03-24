@@ -7,6 +7,8 @@ const mysql = require('mysql');
 const session = require('express-session');
 const path = require('path');
 const bodyparser = require('body-parser')
+var phpExpress = require('php-express')({
+  binPath: 'php'});
 
 // Create the express application object
 const app = express();
@@ -25,7 +27,9 @@ app.use(session({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'static')));
+app.engine('php', phpExpress.engine);
+app.set('view engine', 'php');
+app.use(express.static(path.join(__dirname, '/views')));
 
 // Define the database connection
 const db = mysql.createConnection ({
@@ -64,3 +68,24 @@ require("./routes/main")(app, shopData);
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
 //code to push
+app.get('/api/items/:barcode_id', (req, res) => {
+    const barcode_id = req.params.barcode_id;
+  
+    // Lookup the item name in the database using the barcode ID
+    connection.query(`SELECT name FROM items WHERE barcode_id = '${barcode_id}'`, (error, results, fields) => {
+      if (error) {
+        console.error(error);
+        res.status(500).send('Internal server error');
+        return;
+      }
+      
+      if (results.length === 0) {
+        // If no item with the given barcode ID was found, return a 404 error
+        res.status(404).send('Item not found');
+      } else {
+        // Return the item name as a response
+        res.send(results[0].name);
+      }
+    });
+  });
+
