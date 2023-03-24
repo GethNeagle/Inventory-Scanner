@@ -14,11 +14,11 @@ if ($conn->connect_error) {
 }
 
 // Check if barcode ID is set in the query string
-if (isset($_GET['barcodeid'])) {
-    $barcodeid = $_GET['barcodeid'];
+if (isset($_GET['barcode_id'])) {
+    $barcode_id = $_GET['barcode_id'];
     
     // Query the database to get the name of the item associated with the barcode ID
-    $sql = "SELECT name FROM items WHERE barcodeid = '$barcodeid'";
+    $sql = "SELECT name FROM items WHERE barcode_id = '$barcode_id'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {

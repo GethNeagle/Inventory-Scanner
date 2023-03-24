@@ -238,17 +238,17 @@ module.exports = function(app, shopData) {
         var name = req.body.name;
         var quantity = req.body.quantity;
         var price = req.body.price;
-        var barcodeid = req.body.barcodeid;
+        var barcode_id = req.body.barcode_id;
         // saving data in database
         let sqlquery = "UPDATE items SET quantity = '" + req.query.quanity +
          "', price = '" + req.query.price +
-         "', barcodeid = '" +req.query.barcodeid +
+         "', barcode_id = '" +req.query.barcode_id +
          "' WHERE name = '" + req.query.name + "' AND user = '"+ req.session.username +"'";
          console.log(sqlquery);
         // execute sql query
 
         
-        let newrecord = [quantity,price,barcodeid];
+        let newrecord = [quantity,price,barcode_id];
         //query database
         db.query(sqlquery, newrecord, (err, result) => {
           if (result.affectedRows < 1) {
@@ -262,15 +262,15 @@ module.exports = function(app, shopData) {
  
      app.post('/itemsadded', function (req,res) {
            // saving data in database
-           let sqlquery = "INSERT INTO items (name, quantity, price, barcodeid, user) VALUES (?,?,?,?,?)";
+           let sqlquery = "INSERT INTO items (name, quantity, price, barcode_id, user) VALUES (?,?,?,?,?)";
            // execute sql query
             var user = req.session.username;
             var name = req.body.name;
             var quantity = req.body.quantity;
             var price = req.body.price;
-            var barcodeid = req.body.barcodeid;
+            var barcode_id = req.body.barcode_id;
 
-           let newrecord = [name, quantity ,price, barcodeid, user ];
+           let newrecord = [name, quantity ,price, barcode_id, user ];
            //query database
            db.query(sqlquery, newrecord, (err, result) => {
              if (err) {

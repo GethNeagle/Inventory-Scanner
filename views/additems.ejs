@@ -72,8 +72,8 @@
         <input id="quantity" type="text" name="quantity" value="" required>
         <label for="price">Price of Measurement:</label>
         <input id="price" type="text" name="price" value="" required>
-        <label for="barcodeid">Barcode ID:</label>
-        <input id="barcodeid" type="text" name="barcodeid" value="" required>
+        <label for="barcode_id">Barcode ID:</label>
+        <input id="barcode_id" type="text" name="barcode_id" value="" required>
         <button id="scanButton">Scan Barcode</button>
         <input type="submit" value="Add items">
       </form>
@@ -111,7 +111,7 @@
         try {
           // Use the barcode scanner to scan the barcode and populate the input field
           const result = await codeReader.decodeOnceFromVideoDevice(undefined, 'video');
-          document.getElementById('barcodeid').value = result.text;
+          document.getElementById('barcode_id').value = result.text;
         } catch (error) {
           console.error(error);
         }

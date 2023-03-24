@@ -64,8 +64,8 @@
 
     <h1>Enter Item Details</h1>
     <form action="/submit" method="POST">
-        <label for="barcodeid">Barcode ID:</label>
-        <input type="text" id="barcodeid" name="barcodeid" required>
+        <label for="barcode_id">Barcode ID:</label>
+        <input type="text" id="barcode_id" name="barcode_id" required>
         <label for="name">Item Name:</label>
         <input type="text" id="name" name="name" value="<?php echo $itemName; ?>" required>
         <label for="quantity">Quantity:</label>
@@ -75,12 +75,12 @@
 
     <!-- <script>
         // Get the barcode ID input field
-        var barcodeInput = document.getElementById("barcodeid");
+        var barcodeInput = document.getElementById("barcode_id");
     
         // Add an event listener to the barcode ID input field
         barcodeInput.addEventListener("change", function() {
             // Get the barcode ID value
-            var barcodeId = barcodeInput.value;
+            var barcode_id = barcodeInput.value;
     
             // Send an AJAX request to the PHP file
             var xhr = new XMLHttpRequest();
@@ -92,7 +92,7 @@
                     itemNameInput.value = response.name;
                 }
             };
-            xhr.open("GET", "get_item_name.php?barcodeid=" + barcodeId, true);
+            xhr.open("GET", "get_item_name.php?barcode_id=" + barcode_id, true);
             xhr.send();
         });
     </script> -->
@@ -104,7 +104,7 @@
                 console.log(xhr.responseText);
             }
         };
-        xhr.open("GET", "get_item_name.php?barcodeid=1", true);
+        xhr.open("GET", "get_item_name.php?barcode_id=1", true);
         xhr.send();
     </script>
 </body>
