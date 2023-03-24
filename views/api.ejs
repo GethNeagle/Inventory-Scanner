@@ -8,7 +8,7 @@
         function fetchItemName() {
             const barcode = document.getElementById('barcode_id').value;
             if (barcode) {
-                fetch(`/get_item_name?barcode_id=${barcode}`)
+                fetch(`get_item_name?barcode_id=${barcode}`)
                     .then(response => response.text())
                     .then(itemName => {
                         document.getElementById('name').value = itemName;
