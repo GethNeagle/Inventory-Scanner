@@ -5,7 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barcode Scanner</title>
     <script>
+
+        
         function fetchItemName() {
+            function removeHtmlTags(html) {
+    return html.replace(/<\/?([a-z][a-z0-9]*)\b[^>]*>[\s\S]*?-->/gi, '');
+  }
+
             const barcode = document.getElementById('barcode_id').value;
             if (barcode) {
                 fetch(`api/items/${barcode}`)
