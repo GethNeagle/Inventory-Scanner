@@ -273,24 +273,47 @@ module.exports = function(app, shopData) {
  
      app.post('/itemsadded', function (req,res) {
            // saving data in database
-           let sqlquery = "INSERT INTO items (name, quantity, price, barcode_id) VALUES (?,?,?,?)";
+           let sqlquery = "INSERT INTO items (name, price, barcode_id) VALUES (?,?,?)";
            // execute sql query
             var name = req.body.name;
-            var quantity = req.body.quantity;
             var price = req.body.price;
             var barcode_id = req.body.barcode_id;
 
-           let newrecord = [name, quantity ,price, barcode_id ];
+           let newrecord = [name,price, barcode_id ];
            //query database
            db.query(sqlquery, newrecord, (err, result) => {
              if (err) {
                return console.error(err.message);
              }
-             else
+             
              //sends data for th elist of items
-             res.send(' This items is added to database, name: '+ req.body.name);
+             //res.send(' This items is added to database, name: '+ req.body.name);
              });
-       });    
+       });  
+       
+       app.post('/addinventory', function (req, res) {
+        // update quantity in database
+        let sqlquery = "UPDATE items SET quantity = quantity + ? WHERE barcode_id = ?";
+        // execute sql query
+        var quantity = req.body.quantity;
+        var barcode_id = req.body.barcode_id;
+      
+        let updateRecord = [quantity, barcode_id];
+        //query database
+        db.query(sqlquery, updateRecord, (err, result) => {
+          if (err) {
+            return console.error(err.message);
+          } else if (result.affectedRows === 0) {
+            // If no rows were updated, send a 404 error
+            
+          } else {
+            // Send a success message with the updated item details
+            
+          }
+        });
+      });
+
+      
 
     //renders delete user page
      app.get('/deleteuser', function (req, res) {

@@ -61,6 +61,9 @@ app.engine('html', ejs.renderFile);
 // Define our data
 var shopData = {shopName: "Recipe Buddy"}
 
+
+
+
 // Requires the main.js file inside the routes folder passing in the Express app and data as arguments.  All the routes will go in this file
 require("./routes/main")(app, shopData);
 
@@ -89,4 +92,6 @@ app.get('/api/items/:barcode_id', (req, res) => {
       }
     });
   });
+
+  
 

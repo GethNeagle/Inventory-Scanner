@@ -68,15 +68,14 @@
       <form method="POST" action="/itemsadded">
         <label for="name">items Name:</label>
         <input id="name" type="text" name="name" value="" required>
-        <label for="quantity">Typical Values Per:</label>
-        <input id="quantity" type="text" name="quantity" value="" required>
-        <label for="price">Price of Measurement:</label>
+        <label for="price">Price:</label>
         <input id="price" type="text" name="price" value="" required>
         <label for="barcode_id">Barcode ID:</label>
         <input id="barcode_id" type="text" name="barcode_id" value="" required>
         <button id="scanButton">Scan Barcode</button>
         <input type="submit" value="Add items">
       </form>
+      <div id="message"></div>
     </main>
 
     <script src="https://unpkg.com/@zxing/library@0.22.0"></script>
@@ -115,6 +114,14 @@
         } catch (error) {
           console.error(error);
         }
+      });
+
+      // Show message when item is added
+      const form = document.querySelector('form');
+      form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const message = document.getElementById('message');
+        message.textContent = 'Item added successfully!';
       });
     </script>
   </body>
