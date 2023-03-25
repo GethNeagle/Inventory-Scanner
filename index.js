@@ -84,7 +84,7 @@ app.get('/api/items/:barcode_id', (req, res) => {
         res.status(404).send('Item not found');
       } else {
         // Return the item name as a response
-        res.set('Content-Tye, ;text/plain');
+        res.set('Content-Type', 'text/plain');
         res.send(results[0].name);
       }
     });
