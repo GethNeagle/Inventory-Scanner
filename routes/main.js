@@ -348,6 +348,7 @@ module.exports = function(app, shopData) {
 
     app.get('/export', (req, res) => {
         let sqlquery = 'SELECT name, price, quantity FROM items';
+        console.log("here");
       
         db.query(sqlquery, (err, rows) => {
           if (err) throw err;
