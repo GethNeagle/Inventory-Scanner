@@ -271,25 +271,27 @@ module.exports = function(app, shopData) {
           });
     }); 
  
-     app.post('/itemsadded', function (req,res) {
-           // saving data in database
-           let sqlquery = "INSERT INTO items (name, price, barcode_id) VALUES (?,?,?)";
-           // execute sql query
-            var name = req.body.name;
-            var price = req.body.price;
-            var barcode_id = req.body.barcode_id;
-
-           let newrecord = [name,price, barcode_id ];
-           //query database
-           db.query(sqlquery, newrecord, (err, result) => {
-             if (err) {
-               return console.error(err.message);
-             }
-             
-             //sends data for th elist of items
-             //res.send(' This items is added to database, name: '+ req.body.name);
-             });
-       });  
+    app.post('/itemsadded', function (req,res) {
+        // saving data in database
+        let sqlquery = "INSERT INTO items (name, price, barcode_id) VALUES (?,?,?)";
+      
+        // execute sql query
+        var name = req.body.name;
+        var price = req.body.price;
+        var barcode_id = req.body.barcode_id;
+      
+        let newrecord = [name,price, barcode_id];
+      
+        //query database
+        db.query(sqlquery, newrecord, (err, result) => {
+          if (err) {
+            return console.error(err.message);
+          }
+          
+          //render success message on webpage
+          res.render('success', {name: req.body.name});
+        });
+      }); 
        
        app.post('/addinventory', function (req, res) {
         // update quantity in database
