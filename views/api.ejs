@@ -17,6 +17,7 @@
                         }
                     })
                     .then(itemName => {
+                        const strippedName = itemName.replace(/(<([^>]+)>)/gi, '');
                         document.getElementById('name').value = itemName;
                     });
             }
