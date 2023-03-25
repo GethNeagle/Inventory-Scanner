@@ -372,6 +372,7 @@ module.exports = function(app, shopData) {
       
           // Save the workbook and send it as a response
           const buffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
+          res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
           res.attachment('inventory.xlsx');
           res.send(buffer);
         });
