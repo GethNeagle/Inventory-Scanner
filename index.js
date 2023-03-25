@@ -92,6 +92,5 @@ app.get('/api/items/:barcode_id', (req, res) => {
       }
     });
   });
-
   
 

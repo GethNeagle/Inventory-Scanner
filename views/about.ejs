@@ -1,26 +1,28 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <a href="/">Home</a>
-    <a href="about">About </a>
-    <a href="search">Search items</a>
-    <a href="additems">Add A items</a>
-    <a href="listall">List itemss</a>
-    <a href="register">Register</a>
-    <a href="login">Login Page</a>
-    <a href="logout">Log Out</a>
-    <a href="api">items API</a>
-    </ul>
-    <title>About <%=shopName%></title>
-    <link rel="stylesheet"  type="text/css" href="main.css" />
-  <style>
-
-  </style>
-    <title>About <%=shopName%></title>
-    <link rel="stylesheet"  type="text/css" href="main.css" />
+    <title>Inventory List</title>
   </head>
   <body>
-    <h1>About <%=shopName%></h1>
-    <p>We show the nutritional info for items!</p>
+    <p>Export List</p>
+
+    <button id="export-btn">Export List</button>
+
+    <script>
+      const exportBtn = document.getElementById('export-btn');
+      exportBtn.addEventListener('click', () => {
+        fetch('/export')
+          .then(response => response.blob())
+          .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'inventory.xlsx';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+          });
+      });
+    </script>
   </body>
 </html>

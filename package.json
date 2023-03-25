@@ -18,6 +18,7 @@
     "body-parser": "^1.20.2",
     "document": "^0.4.7",
     "ejs": "^3.1.8",
+    "exceljs": "^4.3.0",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "express-validator": "^6.14.2",
@@ -33,6 +34,7 @@
     "reader": "0.0.8",
     "request": "^2.88.2",
     "socket.io": "^4.6.1",
+    "xlsx": "^0.18.5",
     "zxing": "^0.1.2"
   }
 }
