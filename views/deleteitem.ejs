@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <a href="index">Home</a>
+    <link rel="stylesheet" type="text/css" href="main.css" />
+  </head>
+  <body>
+    <form method="POST" action="/deleted">
+      <p>Item:</p>
+      <select id="itemDropdown" name="item_name">
+        <!-- Items will be populated here -->
+      </select>
+      <br />
+      <input type="submit" value="Delete Item" />
+    </form>
+    <script>
+      // Fetch all items and populate the dropdown menu
+      async function fetchItems() {
+        const response = await fetch('/api/items');
+        const items = await response.json();
+        const dropdown = document.getElementById('itemDropdown');
+
+        items.forEach((item) => {
+          const option = document.createElement('option');
+          option.value = item.name;
+          option.text = item.name;
+          dropdown.add(option);
+        });
+      }
+
+      // Call fetchItems on page load
+      fetchItems();
+    </script>
+  </body>
+</html>

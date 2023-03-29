@@ -327,24 +327,41 @@ module.exports = function(app, shopData) {
       
 
     //renders delete user page
-     app.get('/deleteuser', function (req, res) {
+     app.get('/deleteitem', function (req, res) {
         if (req.session.loggedin){
-            res.render('deleteuser.ejs', shopData);
+            res.render('deleteitem.ejs', shopData);
         }else{
             res.send("Please log in");
         }
      });
      //method to delete a items. 
-    app.post('/deleted', function(req, res) {
-        console.log(req.body.name);
-          let sqlquery = 'DELETE FROM items WHERE name = ?';
-          ///sql to delete the user.
-          db.query(sqlquery, function (err, data) {
-          if (err) throw err;
-          console.log(data.affectedRows + " record(s) updated");
-        });
-        res.send("Deleted");
+    // app.post('/deleted', function(req, res) {
+    //     console.log(req.body.name);
+    //       let sqlquery = 'DELETE FROM items WHERE name = ?';
+    //       ///sql to delete the user.
+    //       db.query(sqlquery, function (err, data) {
+    //       if (err) throw err;
+    //       console.log(data.affectedRows + " record(s) updated");
+    //     });
+    //     res.send("Deleted");
+    // });
+    app.post('/deleted', (req, res) => {
+      const itemId = req.body.item_name;
+      const sqlquery = 'DELETE FROM items WHERE name = ?';
+    
+      db.query(sqlquery, [itemId], (err, result) => {
+        if (err) {
+          console.error(err);
+          res.status(500).send('Internal server error');
+          return;
+        }
+    
+        res.redirect('/deleteitem');
+      });
     });
+    
+
+
 
     app.get('/export', (req, res) => {
         let sqlquery = 'SELECT name, price, quantity FROM items';
@@ -377,6 +394,22 @@ module.exports = function(app, shopData) {
           res.send(buffer);
         });
       });
+
+      app.get('/api/items', (req, res) => {
+        const sqlquery = 'SELECT * FROM items';
+      
+        db.query(sqlquery, (err, rows) => {
+          if (err) {
+            console.error(err);
+            res.status(500).send('Internal server error');
+            return;
+          }
+      
+          res.json(rows);
+        });
+      });
+
+      
       
       
       

@@ -35,7 +35,7 @@ app.use(express.static(path.join(__dirname, '/views')));
 const db = mysql.createConnection ({
     host: 'localhost',
     user: 'root',
-    password: 'app2027',
+    password: 'password',
     database: 'inventorydb'
 });
 // Connect to the database
@@ -59,13 +59,13 @@ app.set('view engine', 'ejs');
 app.engine('html', ejs.renderFile);
 
 // Define our data
-var shopData = {shopName: "Recipe Buddy"}
+
 
 
 
 
 // Requires the main.js file inside the routes folder passing in the Express app and data as arguments.  All the routes will go in this file
-require("./routes/main")(app, shopData);
+require("./routes/main")(app);
 
 // Start the web app listening
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
