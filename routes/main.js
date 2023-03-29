@@ -392,37 +392,48 @@ module.exports = function(app, shopData) {
 
 
     app.get('/export', (req, res) => {
-        let sqlquery = 'SELECT name, price, quantity FROM items';
-        console.log("here");
-      
-        db.query(sqlquery, (err, rows) => {
-          if (err) throw err;
-      
-          // Map rows to an array of objects with keys that match the column names
-          const data = rows.map(row => {
-            return {
-              Name: row.name,
-              Price: row.price,
-              Quantity: row.quantity,
-              Value: row.price * row.quantity
-            }
-          });
-      
-          // Create a new workbook and worksheet
-          const workbook = XLSX.utils.book_new();
-          const worksheet = XLSX.utils.json_to_sheet(data);
-          console.log(data);
-      
-          // Add the worksheet to the workbook
-          XLSX.utils.book_append_sheet(workbook, worksheet, 'Inventory List');
-      
-          // Save the workbook and send it as a response
-          const buffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
+      let sqlquery = 'SELECT name, price, quantity FROM items';
+      console.log("here");
+    
+      db.query(sqlquery, (err, rows) => {
+        if (err) throw err;
+    
+        // Map rows to an array of objects with keys that match the column names
+        const data = rows.map(row => {
+          return {
+            Name: row.name,
+            Price: row.price,
+            Quantity: row.quantity,
+            Value: row.price * row.quantity
+          }
+        });
+    
+        // Create a new workbook and worksheet
+        const workbook = new ExcelJS.Workbook();
+        const worksheet = workbook.addWorksheet('Inventory List');
+        console.log(data);
+    
+        // Add column headers
+        worksheet.columns = [
+          { header: 'Name', key: 'Name', width: 10 },
+          { header: 'Price', key: 'Price', width: 10 },
+          { header: 'Quantity', key: 'Quantity', width: 10 },
+          { header: 'Value', key: 'Value', width: 10 }
+        ];
+    
+        // Add data to the worksheet
+        data.forEach((item) => {
+          worksheet.addRow(item);
+        });
+    
+        // Save the workbook and send it as a response
+        workbook.xlsx.writeBuffer().then((buffer) => {
           res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
           res.attachment('inventory.xlsx');
           res.send(buffer);
         });
       });
+    });
 
       app.get('/api/items', (req, res) => {
         const sqlquery = 'SELECT * FROM items';
