@@ -34,8 +34,8 @@ app.use(express.static(path.join(__dirname, '/views')));
 // Define the database connection
 const db = mysql.createConnection ({
     host: 'localhost',
-    user: 'root',
-    password: 'password',
+    user: 'appuser',
+    password: 'app2027',
     database: 'inventorydb'
 });
 // Connect to the database
