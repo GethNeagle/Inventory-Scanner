@@ -93,36 +93,36 @@ app.get('/api/items/:barcode_id', (req, res) => {
     });
   });
 
-  app.get('/export', (req, res) => {
-    let sqlquery = 'SELECT name, price, quantity FROM items';
-    console.log("here");
+  // app.get('/export', (req, res) => {
+  //   let sqlquery = 'SELECT name, price, quantity FROM items';
+  //   console.log("here");
   
-    db.query(sqlquery, (err, rows) => {
-      if (err) throw err;
+  //   db.query(sqlquery, (err, rows) => {
+  //     if (err) throw err;
   
-      // Map rows to an array of objects with keys that match the column names
-      const data = rows.map(row => {
-        return {
-          Name: row.name,
-          Price: row.price,
-          Quantity: row.quantity,
-          Value: row.price * row.quantity
-        }
-      });
+  //     // Map rows to an array of objects with keys that match the column names
+  //     const data = rows.map(row => {
+  //       return {
+  //         Name: row.name,
+  //         Price: row.price,
+  //         Quantity: row.quantity,
+  //         Value: row.price * row.quantity
+  //       }
+  //     });
   
-      // Create a new workbook and worksheet
-      const workbook = XLSX.utils.book_new();
-      const worksheet = XLSX.utils.json_to_sheet(data);
+  //     // Create a new workbook and worksheet
+  //     const workbook = XLSX.utils.book_new();
+  //     const worksheet = XLSX.utils.json_to_sheet(data);
   
-      // Add the worksheet to the workbook
-      XLSX.utils.book_append_sheet(workbook, worksheet, 'Inventory List');
+  //     // Add the worksheet to the workbook
+  //     XLSX.utils.book_append_sheet(workbook, worksheet, 'Inventory List');
   
-      // Save the workbook and send it as a response
-      const buffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
-      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-      res.attachment('inventory.xlsx');
-      res.send(buffer);
-    });
-  });
+  //     // Save the workbook and send it as a response
+  //     const buffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
+  //     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+  //     res.attachment('inventory.xlsx');
+  //     res.send(buffer);
+  //   });
+  // });
   
 
