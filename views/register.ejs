@@ -2,14 +2,15 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet"  type="text/css" href="main.css" />
+  <link rel="stylesheet" type="text/css" href="main.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
   
   <main>
     <div class="login-container">
-      <h1>Login</h1>
+      <h1>Register</h1>
       <form id="login-form" method="POST" action="/registered">
         <div class="form-group">
           <label for="username">Username:</label>
@@ -17,7 +18,7 @@
         </div>
         <div class="form-group">
           <label for="email">Email:</label>
-          <input type="email" id="text" name="email" required>
+          <input type="email" id="email" name="email" required>
         </div>
         <div class="form-group">
           <label for="password">Password:</label>
@@ -29,14 +30,27 @@
 
     </div>
   </main>
-  
-  <!-- <form method="POST" action="/registered">
-    <p>Username: <input id="username" type="text" name="username" value="" /></p>
-    <p>First Name: <input id="first" type="text" name="first" value="" /></p>
-    <p>Last Name: <input id="last" type="text" name="last" value="" /></p>
-    <p>Email: <input id="email" type="text" name="email" value="" /></p>
-    <p>Password: <input id="password" type="password" name="password" value="" /></p>
-    <input type="submit" value="Register" />
-  </form> -->
+  <script>
+    $(document).ready(function() {
+      $('#login-form').on('submit', function(e) {
+        e.preventDefault();
+        $.ajax({
+          url: '/registered',
+          method: 'POST',
+          data: $(this).serialize(),
+          success: function(response) {
+            if (response.success) {
+              $('#message-box').text(response.message).show();
+            } else {
+              $('#message-box').text(response.errors.map(err => err.msg).join(', ')).show();
+            }
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            $('#message-box').text('An error occurred: ' + textStatus).show();
+          }
+        });
+      });
+    });
+</script>
 </body>
 </html>

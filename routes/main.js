@@ -97,39 +97,67 @@ module.exports = function(app, shopData) {
 
 
       //posts the registered page
-    app.post('/registered',[
-        check('username', 'Username should be more than 4 characters')//checks username is longer than 4 chars
-                    .isLength({ min: 4, max: 30 }),
-        check('email', 'Email should be more than 8 characters')//checks email is an email
-                    .isEmail().isLength({ min: 8, max: 50 }),
-        check('password', 'Password length should be 8 to 10 characters')//checks password is at least 8 chars long
-                    .isLength({ min: 8, max: 10 })
-    ], function (req,res) {
-        //initialise bcrypt
+    
+
+      app.post('/registered', [
+        check('username', 'Username should be more than 4 characters')
+          .isLength({ min: 4, max: 30 }),
+        check('email', 'Email should be more than 8 characters')
+          .isEmail().isLength({ min: 8, max: 50 }),
+        check('password', 'Password length should be 8 to 30 characters')
+          .isLength({ min: 8, max: 30 })
+      ], function (req, res) {
+        // Initialise bcrypt
         const bcrypt = require('bcryptjs');
         const saltRounds = 10;
         const plainPassword = req.body.password;
-        //hashing the password
-        bcrypt.hash(plainPassword, saltRounds, function(err, hashedPassword) { 
-            console.log(hashedPassword);
-            let sqlquery = "INSERT INTO users (username, hashedPassword, email) VALUES (?,?,?)";
-            let newrecord = [req.body.username, hashedPassword, req.body.email];
-            const errors = validationResult(req);//validation happens here
-            if (!errors.isEmpty()){
-                res.json(errors)//prints any errors with validation the to screen
-            }
-            else{
-            db.query(sqlquery, newrecord, (err, result) => {
-                if (err) {
-                    return console.error(err.message);
+      
+        // Hashing the password
+        bcrypt.hash(plainPassword, saltRounds, function (err, hashedPassword) {
+          console.log(hashedPassword);
+      
+          const errors = validationResult(req); // Validation happens here
+          if (!errors.isEmpty()) {
+            res.json({ success: false, errors: errors.array() });
+          } else {
+            // Check if the username and email already exist in the database
+            db.query('SELECT * FROM users WHERE username = ? OR email = ?', [req.body.username, req.body.email], (err, result) => {
+              if (err) {
+                return console.error(err.message);
+              }
+              if (result.length > 0) {
+                const existingUsername = result.some(user => user.username === req.body.username);
+                const existingEmail = result.some(user => user.email === req.body.email);
+                const message = [];
+                //let message = '';
+                if (existingUsername) {
+                  message.push({ msg: 'Username already exists.' });
                 }
-                else
-                //result = 'Hello '+ req.body.first + ' '+ req.body.last +' you are now registered! We will send an email to you at ' + req.body.email;
-                //result += 'Your password is: '+ req.body.password +' and your hashed password is: '+ hashedPassword;
-                res.render('registered.ejs');
-            })
-        }})
-    });
+                if (existingEmail) {
+                  message.push({ msg: 'Email already exists.' });
+                }
+                res.json({ success: false, errors: message });
+              } else {
+                // If the username and email are unique, insert the new record
+                let sqlquery = "INSERT INTO users (username, hashedPassword, email) VALUES (?,?,?)";
+                let newrecord = [req.body.username, hashedPassword, req.body.email];
+      
+                db.query(sqlquery, newrecord, (err, result) => {
+                  if (err) {
+                    return console.error(err.message);
+                  } else {
+                    res.json({ success: true, message: 'You are now registered!' });
+                  }
+                });
+              }
+            });
+          }
+        });
+      });
+      
+      
+
+
 
 
     //renders the items API
@@ -383,6 +411,7 @@ module.exports = function(app, shopData) {
           // Create a new workbook and worksheet
           const workbook = XLSX.utils.book_new();
           const worksheet = XLSX.utils.json_to_sheet(data);
+          console.log(data);
       
           // Add the worksheet to the workbook
           XLSX.utils.book_append_sheet(workbook, worksheet, 'Inventory List');
