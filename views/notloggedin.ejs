@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript"></script>
+<style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('http://www.doc.gold.ac.uk/usr/208/images/barback.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      }
+
+
+    header {
+      background-color: #333;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 5px 10px;
+      display: inline-block;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: minmax(100px, auto);
+      gap: 10px;
+      padding: 20px;
+      box-sizing: border-box;
+      justify-items: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    h1 {
+      font-size: 48px;
+      color: white;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .nav-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(0, 247, 255);
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      border-radius: 4px;
+      padding: 10px 20px;
+      margin-top: 20px;
+    }
+
+    .nav-button:hover {
+      background-color: #00e1ff;
+    }
+
+    @media screen and (min-width: 768px) {
+      main {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div>
+      <h1>Uh Oh! Looks like you're not logged in!</h1>
+      <a class="nav-button" href="/login">Go to Login</a>
+    </div>
+  </main>
+</body>
+</html>

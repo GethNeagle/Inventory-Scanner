@@ -20,14 +20,17 @@ module.exports = function(app) {
     app.get('/',function(req,res){
         res.render('login.ejs')
     });
-    app.get('/export',function(req,res){
-        res.render('export.ejs');
+    app.get('/exportitems',function(req,res){
+        res.render('exportitems.ejs');
     });
 
-    app.get('/index',function(req,res){
-        res.render('index.ejs');
-    });
-
+    app.get('/index', function (req, res) {
+      if (req.session.loggedin){
+          res.render('index.ejs');
+      }else{
+          res.render('notloggedin.ejs')
+      }
+   });
     app.get('/reset',function(req,res){
       res.render('reset.ejs')
     });
