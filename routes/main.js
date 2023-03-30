@@ -349,7 +349,7 @@ module.exports = function(app) {
 
 
 
-    app.get('/exportList', (req, res) => {
+    app.get('/exportlist', (req, res) => {
       let sqlquery = 'SELECT name, price, quantity FROM items';
       console.log("here");
     

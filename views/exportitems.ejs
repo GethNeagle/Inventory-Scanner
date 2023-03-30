@@ -11,7 +11,7 @@
     <script>
       const exportBtn = document.getElementById('export-btn');
       exportBtn.addEventListener('click', () => {
-        fetch('http://www.doc.gold.ac.uk/usr/208/exportList')
+        fetch('exportlist')
           .then(response => response.blob())
           .then(blob => {
             const url = window.URL.createObjectURL(blob);
