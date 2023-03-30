@@ -126,7 +126,7 @@
             const itemName = e.target.dataset.itemName;
 
             try {
-              const response = await fetch('/deleted', {
+              const response = await fetch('deleted', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
