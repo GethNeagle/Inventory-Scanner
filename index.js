@@ -30,6 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 app.engine('php', phpExpress.engine);
 app.set('view engine', 'php');
 app.use(express.static(path.join(__dirname, '/views')));
+app.use('/images', express.static(process.cwd() + '/images'))
 
 // Define the database connection
 const db = mysql.createConnection ({

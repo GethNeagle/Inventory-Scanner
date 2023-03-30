@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="main.css" />
     <style>
       body {
-        background-image: url('blurred_bar.jpg');
+        background-image: url('/images/blurred_bar.jpg');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -13,11 +13,54 @@
       .login-container {
         max-width: 90%;
         margin: 0 auto;
+        background-color: rgba(255, 255, 255, 0);
+        border: none;
       }
+      .login-container h1{
+        color: white;
+        border: none;
+      }
+      .form-group label {
+        font-size: 18px; /* Larger font size */
+        font-style: initial;
+        color: white; /* White text color */
+      }
+      .register-link {
+        font-size: 18px; /* Larger font size */
+        font-style: initial;
+        color: white; /* White text color */
+      }
+      .register-link a {
+      display: inline-block;
+      background-color: rgb(0, 204, 255);
+      color: white; /* White text color */
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      margin-left: 5px;
+    }
+    .register-link a:hover {
+      background-color: #45a049; /* Darken the background color on hover */
+    }
+    .logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-top: 20px;
+      }
+    .logo img {
+      max-width: 200px; /* Adjust the max width if needed */
+      max-height: 100px; /* Adjust the max height if needed */
+      height: auto;
+      width: auto;
+    }
+          
       @media screen and (max-width: 480px) {
         .login-container {
           max-width: 100%;
           padding: 0 20px;
+          border: none;
         }
       }
     </style>
@@ -26,6 +69,9 @@
 
 
     <main>
+      <div class="logo">
+        <img src="/images/scannerlogo.png" alt="logo">
+      </div>
       <div class="login-container">
         <h1>Login</h1>
         <form id="login-form" method="POST" action="/loggedin">
