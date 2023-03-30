@@ -32,7 +32,6 @@ a {
   padding: 1em 1.5em;
   position: relative;
   text-decoration: none;
-  text-transform: uppercase;
   display: inline-table;
 }
 
@@ -66,9 +65,6 @@ a:active {
   text-decoration: none;
 }
 
-.index li a:hover {
-  background-color: #c91d1d;
-}
 
 /* Responsive styles */
 header {
@@ -122,7 +118,6 @@ label {
 
 input[type="username"],
 input[type="password"],
-input[type="email"],
 input[type="/register"] {
   width: 100%;
   padding: 0.5rem;
@@ -132,18 +127,16 @@ input[type="/register"] {
 }
 
 button[type="submit"] {
-  background-color: rgb(0, 247, 255);
+  background-color: rgb(0, 247, 255, 0.1);
   color: white;
-  border: none;
+  border: 1px solid white;
   padding: 0.75rem 1.5rem;
   text-transform: uppercase;
   cursor: pointer;
   border-radius: 3px;
 }
 
-button[type="submit"]:hover {
-  background-color: #ce0606;
-}
+
 
 button[type="submit"]:active {
   box-shadow: none;

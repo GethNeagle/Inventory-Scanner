@@ -4,6 +4,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="main.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
       body {
         background-image: url('http://www.doc.gold.ac.uk/usr/208/images/barback.jpg');
@@ -30,24 +31,32 @@
         font-style: initial;
         color: white; /* White text color */
       }
+      .form-group input[type="username"], .form-group input[type="password"] {
+        background: transparent;
+        border: 1px solid white;
+        border-radius: 25px;
+        font-size: 18px;
+        color: white;
+        padding: 5px;
+        margin-bottom: 20px;
+        width: 100%;
+      }
       .register-link {
         font-size: 18px; /* Larger font size */
         font-style: initial;
         color: white; /* White text color */
       }
-      .register-link a {
+
+    .register-link a {
       display: inline-block;
-      background-color: rgb(0, 247, 255);
-      color: white; /* White text color */
+      background-color: rgb(0, 247, 255,0.1);
+      color: white;
       font-size: 16px;
       text-decoration: none;
       padding: 8px 16px;
       border-radius: 4px;
-      margin-left: 5px;
     }
-    .register-link a:hover {
-      background-color: #ff0000; /* Darken the background color on hover */
-    }
+
     .logo {
         display: flex;
         justify-content: center;
@@ -79,7 +88,6 @@
         <img src="/images/scannerlogo.png" alt="logo">
       </div>
       <div class="login-container">
-        <h1>Login</h1>
         <form id="login-form" method="POST" action="/loggedin">
           <div class="form-group">
             <label for="username">Username:</label>
