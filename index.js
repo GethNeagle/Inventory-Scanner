@@ -29,6 +29,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.engine('php', phpExpress.engine);
 app.set('view engine', 'php');
+var publicDir = require('path').join(__dirname,'/public');
+app.use(express.static(publicDir));
 app.use(express.static(path.join(__dirname, '/views')));
 app.use('/images', express.static(process.cwd() + '/images'))
 
