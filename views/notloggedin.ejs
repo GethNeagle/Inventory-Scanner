@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script type="text/javascript"></script>
 <style>
     body {
@@ -41,10 +41,26 @@
     }
 
     h1 {
-      font-size: 32px;
+      font-size: 50px;
       color: white;
       text-align: center;
-      margin-bottom: 30px;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      margin-top: -100px;
+      margin-left: -200px;
+    }
+
+    footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100px;
+      width: 100%;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      background-color: rgba(255, 255, 255, 0.8);
     }
 
     .nav-button {
@@ -57,7 +73,6 @@
       font-size: 14px;
       border-radius: 4px;
       padding: 8px 16px;
-      margin-top: 20px;
     }
 
     .nav-button:hover {
@@ -69,14 +84,32 @@
 
       }
     }
+    
+    @media screen and (max-width: 480px) {
+      div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
+
+      footer {
+        height: auto;
+      }
+    }
   </style>
 </head>
 <body>
   <main>
     <div>
       <h1>Uh Oh! Looks like you're not logged in!</h1>
-      <a class="nav-button" href="/login">Go to Login</a>
+
     </div>
+    <footer>
+        <a class="nav-button" href="/login">Go to Login</a>
+      </footer>
   </main>
+
 </body>
 </html>
