@@ -14,22 +14,27 @@ const { check, validationResult }
 
 
 
-module.exports = function(app, shopData) {
+module.exports = function(app) {
 
     // Handle our routes
     app.get('/',function(req,res){
-        res.render('login.ejs', shopData)
+        res.render('login.ejs')
     });
     app.get('/export',function(req,res){
-        res.render('export.ejs', shopData);
+        res.render('export.ejs');
     });
 
     app.get('/index',function(req,res){
-        res.render('index.ejs', shopData);
+        res.render('index.ejs');
     });
 
+    app.get('/reset',function(req,res){
+      res.render('reset.ejs')
+    });
+
+
     app.get('/search',function(req,res){
-        res.render('search.ejs', shopData);
+        res.render('search.ejs');
     });
     app.get('/search-result', function (req, res) {
         //searching in the database
@@ -40,7 +45,7 @@ module.exports = function(app, shopData) {
                 res.redirect('./'); 
             }
             //if no errors
-            let newData = Object.assign({}, shopData, {availableitemss:result});
+            let newData = Object.assign({}, {availableitemss:result});
             console.log(JSON.stringify(req.body.keyword))
             if (newData.availableitemss.length > 0 && req.query.keyword.length > 0 ){
                 res.render('list.ejs', newData)
@@ -59,7 +64,7 @@ module.exports = function(app, shopData) {
             if (err) {
                 res.redirect('./'); 
             }
-            let newData = Object.assign({}, shopData, {availableitemss:result});
+            let newData = Object.assign({},{availableitemss:result});
             console.log(newData)
             res.render('listall.ejs', newData)
             //res.json({newData})
@@ -92,7 +97,7 @@ module.exports = function(app, shopData) {
 
     //gets the register page
     app.get('/register', function (req,res) {
-        res.render('register.ejs', shopData);                                                                     
+        res.render('register.ejs');                                                                     
     });
 
 
@@ -162,7 +167,7 @@ module.exports = function(app, shopData) {
 
     //renders the items API
     app.get('/scan', function (req,res) {
-        res.render('scan.ejs', shopData);                                                                     
+        res.render('scan.ejs');                                                                     
     });
 
     app.get('/get_item_name', (req, res) => {
@@ -217,7 +222,7 @@ module.exports = function(app, shopData) {
 
     //gets logout page    
     app.get('/logout', function (req, res) {
-        res.render('logout.ejs', shopData);
+        res.render('logout.ejs');
      });
 
      //posts logges out - will post an error message if no user is logged in
@@ -233,7 +238,7 @@ module.exports = function(app, shopData) {
 
     //Renders login page
     app.get('/login', function (req, res) {
-        res.render('login.ejs', shopData);
+        res.render('login.ejs');
      });
      
     //  //render login page
@@ -275,7 +280,7 @@ module.exports = function(app, shopData) {
     //renders additems page
     app.get('/additems', function (req, res) {
         //if (req.session.loggedin){
-            res.render('additems.ejs', shopData);
+            res.render('additems.ejs');
         //}else{
             //if no users logged in, will prompt user to log in
         //    res.send("Please log in");
@@ -357,7 +362,7 @@ module.exports = function(app, shopData) {
     //renders delete user page
      app.get('/deleteitem', function (req, res) {
         if (req.session.loggedin){
-            res.render('deleteitem.ejs', shopData);
+            res.render('deleteitem.ejs');
         }else{
             res.send("Please log in");
         }
@@ -446,6 +451,19 @@ module.exports = function(app, shopData) {
           }
       
           res.json(rows);
+        });
+      });
+
+      app.post('/reset-quantity', (req, res) => {
+        const sqlquery = 'UPDATE items SET quantity = 0';
+      
+       db.query(sqlquery, (error, results) => {
+          if (error) {
+            console.error('Error resetting quantities:', error);
+            res.status(500).send('Error resetting quantities');
+            return;
+          }
+          res.status(200).send('Item quantities reset successfully');
         });
       });
 

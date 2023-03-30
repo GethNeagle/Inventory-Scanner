@@ -1,191 +1,135 @@
 <!doctype html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-  <link rel="stylesheet" href="main.css">
-  <style>
-    body {
-      font-family: 'Helvetica Neue', sans-serif;
-      background-color: #f2f2f2;
-      color: #333;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    main {
-      width: 100%;
-      max-width: 400px;
-    }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="main.css">
+    <style>
+      /* Add some mobile styles */
+      body {
+        background-image: url('http://www.doc.gold.ac.uk/usr/208/images/barback.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
 
-    a {
-      display: inline-block;
-      margin-bottom: 20px;
-      text-decoration: none;
-      color: #333;
-    }
-
-    h1 {
-      text-align: center;
-      font-size: 24px;
-      margin-bottom: 30px;
-    }
-
-    form {
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      padding: 20px;
-      background-color: #fff;
-      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    label {
-      display: block;
-      margin-bottom: 5px;
-      font-size: 18px;
-    }
-
-    input[type="text"], input[type="number"] {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 16px;
-    }
-
-    input[type="submit"] {
-      background-color: #333;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      font-size: 18px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      width: 100%;
-    }
-
-    input[type="submit"]:hover {
-      background-color: #444;
-    }
-
-    #video {
-      width: 100%;
-      height: auto;
-      margin-bottom: 20px;
-    }
-
-    #message {
-      margin-top: 20px;
-      text-align: center;
-      font-weight: bold;
-    }
-
-    #scanButton {
-      display: block;
-      background-color: #333;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      font-size: 18px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      width: 100%;
-      margin-bottom: 20px;
-    }
-
-    #scanButton:hover {
-      background-color: #444;
-    }
-    footer {
-      position: absolute;
-      bottom: 20px;
-      width: 100%;
-      text-align: center;
-    }
-    @media screen and (max-width: 480px) {
-        .login-container {
-          max-width: 100%;
-          padding: 0 20px;
-          border: none;
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            color: white;
+            margin-bottom: 30px;
         }
-      }
 
-  </style>
-</head>
-<body>
-  <main>
-    <h1>Add items</h1>
-    <video id="video"></video>
-    <form method="POST" action="/itemsadded">
-      <label for="name">Items Name:</label>
-      <input id="name" type="text" name="name" value="" required>
-      <label for="price">Price:</label>
-      <input id="price" type="text" name="price" value="" required>
-      <label for="barcode_id">Barcode ID:</label>
-      <input id="barcode_id" type="text" name="barcode_id" value="" required>
-      <button id="scanButton">Scan Barcode</button>
-      <input type="submit" value="Add items">
-    </form>
-    <div id="message"></div>
-  </main>
-  <footer>
-    <a href="/index">Home</a>
-  </footer>
+        form {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
-  <script src="https://unpkg.com/@zxing/library@0.22.0"></script>
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
 
-  <script>
-    // Get the video element and set the constraints for the media stream
-    const video = document.getElementById('video');
-    const constraints = {
-      audio: false,
-      video: {
-        facingMode: 'environment'
-      }
-    };
+        input[type="text"], input[type="number"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        footer {
+          text-align: center;
+        }
 
-    // Request access to the camera and attach the stream to the video element
-    navigator.mediaDevices.getUserMedia(constraints)
-      .then(function(stream) {
-        video.srcObject = stream;
-        video.play();
-      })
-      .catch(function(error) {
-        console.error('Could not access camera', error);
+        input[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #444;
+        }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1> Add items</h1>
+      <form method="POST" action="/itemsadded">
+        <label for="name">Product Name:</label>
+        <input id="name" type="text" name="name" value="" required>
+        <label for="price">Price:</label>
+        <input id="price" type="text" name="price" value="" required>
+        <label for="barcode_id">Barcode ID:</label>
+        <input id="barcode_id" type="text" name="barcode_id" value="" required>
+        <input type="submit" value="Add items">
+      </form>
+      <div id="message"></div>
+    </main>
+    <footer>
+      <a href="/index">Home</a>
+      <a href="/reset">Reset Item Quantities</a>
+
+    </footer>
+
+    <script src="https://unpkg.com/@zxing/library@0.22.0"></script>
+
+    <script>
+      // Get the video element and set the constraints for the media stream
+      const video = document.getElementById('video');
+      const constraints = {
+        audio: false,
+        video: {
+          facingMode: 'environment'
+        }
+      };
+
+      // Request access to the camera and attach the stream to the video element
+      navigator.mediaDevices.getUserMedia(constraints)
+        .then(function(stream) {
+          video.srcObject = stream;
+          video.play();
+        })
+        .catch(function(error) {
+          console.error('Could not access camera', error);
+        });
+
+
+      // Create a barcode scanner instance
+      const codeReader = new ZXing.BrowserBarcodeReader();
+
+      // Attach an event listener to the Scan Barcode button
+      const scanButton = document.getElementById('scanButton');
+      scanButton.addEventListener('click', async () => {
+        try {
+          // Use the barcode scanner to scan the barcode and populate the input field
+          const result = await codeReader.decodeOnceFromVideoDevice(undefined, 'video');
+          document.getElementById('barcode_id').value = result.text;
+        } catch (error) {
+          console.error(error);
+        }
       });
 
-    // Create a barcode scanner instance
-    const codeReader = new ZXing.BrowserBarcodeReader();
-
-    // Attach an event listener to the Scan Barcode button
-    const scanButton = document.getElementById('scanButton');
-    scanButton.addEventListener('click', async () => {
-      try {
-        // Use the barcode scanner to scan the barcode and populate the input field
-        const result = await codeReader.decodeOnceFromVideoDevice(undefined, 'video');
-        document.getElementById('barcode_id').value = result.text;
-      } catch (error) {
-        console.error(error);
-      }
-    });
-
-    // Show message when item is added
-    const form = document.querySelector('form');
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
-      const message = document.getElementById('message');
-      message.textContent = 'Item added successfully!';
-    });
-  </script>
-</body>
+      // Show message when item is added
+      const form = document.querySelector('form');
+      form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const message = document.getElementById('message');
+        message.textContent = 'Item added successfully!';
+      });
+    </script>
+  </body>
 </html>
-

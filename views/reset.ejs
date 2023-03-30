@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Reset Item Quantities</title>
+<script type="text/javascript"></script>
+<link rel="stylesheet" href="main.css">
+<style>
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  h1 {
+    margin-bottom: 20px;
+  }
+  footer {
+          text-align: center;
+        }
+
+  button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 5px;
+  }
+
+  button:hover {
+    background-color: #444;
+  }
+  @media screen and (min-width: 768px) {
+        main {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+</style>
+</head>
+<body>
+
+<h1>Are you sure you want to reset item quantities?</h1>
+<button id="yesButton">Yes</button>
+<button id="noButton">No</button>
+
+
+<script>
+  document.getElementById('yesButton').addEventListener('click', async () => {
+    try {
+      const response = await fetch('/reset-quantity', { method: 'POST' });
+      const message = await response.text();
+      alert(message);
+      // Redirect to the additems page
+      window.location.href = '/additems';
+    } catch (error) {
+      console.error('Error resetting quantity', error);
+    }
+  });
+
+  document.getElementById('noButton').addEventListener('click', () => {
+    // Redirect to the additems page
+    window.location.href = '/additems';
+  });
+</script>
+
+</body>
+</html>

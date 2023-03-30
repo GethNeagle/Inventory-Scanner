@@ -1,32 +1,122 @@
 <!doctype html>
 <html>
   <head>
-    <a href="/">Home</a>
-    <a href="about">About </a>
-    <a href="search">Search items</a>
-    <a href="additems">Add A items</a>
-    <a href="listall">List itemss</a>
-    <a href="register">Register</a>
-    <a href="login">Login Page</a>
-    <a href="logout">Log Out</a>
-    <a href="api">items API</a>
-    </ul>
-    <link rel="stylesheet"  type="text/css" href="main.css" />
-  <style>
-  </style>
-    <link rel="stylesheet"  type="text/css" href="main.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Items Database</title>
+    <link rel="stylesheet" type="text/css" href="main.css" />
+    <style>
+      body {
+        background-image: url('http://www.doc.gold.ac.uk/usr/208/images/barback.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      h2 {
+        text-align: center;
+        padding: 20px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+
+      th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      footer {
+        background-color: #f2f2f2;
+        text-align: center;
+        padding: 10px 0;
+        margin-top: 20px;
+      }
+
+      a {
+        text-decoration: none;
+        color: #000;
+      }
+
+      @media screen and (max-width: 480px) {
+        table, thead, tbody, th, td, tr {
+          display: block;
+        }
+
+        thead tr {
+          position: absolute;
+          top: -9999px;
+          left: -9999px;
+        }
+
+        tr {
+          margin-bottom: 10px;
+        }
+
+        td {
+          display: flex;
+          justify-content: space-between;
+          border-bottom: none;
+          position: relative;
+          padding-left: 50%;
+        }
+
+        td:before {
+          position: absolute;
+          top: 0;
+          left: 6px;
+          width: 45%;
+          padding-right: 10px;
+          white-space: nowrap;
+        }
+
+        td:nth-of-type(1):before { content: "Name"; }
+        td:nth-of-type(2):before { content: "Quantity"; }
+        td:nth-of-type(3):before { content: "Price"; }
+        td:nth-of-type(4):before { content: "Barcode ID"; }
+      }
+    </style>
   </head>
   <body>
-    <h2>Here are the itemss we have information on:</h2>
-    <ul class="nav">
-      <% availableitemss.forEach(function(items) { %>
-          <br>Name:<%=items.name %>
-          <br>quantity:<%=items.quantity%>
-          <br>price:<%=items.price%>
-          <br>barcode_id:<%=items.barcode_id%>
-
-          <br>
-      <% }) %>
-    </ul>
-    </body>
+    <h2>These are the items in the database:</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Barcode ID</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% availableitemss.forEach(function(items) { %>
+          <tr>
+            <td><%= items.name %></td>
+            <td><%= items.quantity %></td>
+            <td><%= items.price %></td>
+            <td><%= items.barcode_id %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <footer>
+      <a href="/index">Home</a>
+    </footer>
+  </body>
 </html>
