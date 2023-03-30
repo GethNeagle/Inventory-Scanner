@@ -161,8 +161,8 @@ module.exports = function(app, shopData) {
 
 
     //renders the items API
-    app.get('/api', function (req,res) {
-        res.render('api.ejs', shopData);                                                                     
+    app.get('/scan', function (req,res) {
+        res.render('scan.ejs', shopData);                                                                     
     });
 
     app.get('/get_item_name', (req, res) => {
@@ -224,7 +224,7 @@ module.exports = function(app, shopData) {
      app.post('/loggedout', async (req, res) => {
         if (req.session.loggedin) {
             delete req.session.loggedin;
-            res.send({result: 'SUCCESS'});
+            res.render('login.ejs');
         } else {
             //if no user logged in, send error message
             res.json({result: 'ERROR', message: 'User is not logged in.'});

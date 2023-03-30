@@ -1,26 +1,102 @@
 <!doctype html>
 <html>
 <head>
-  <a href="/">Home</a>
-  <a href="about">About </a>
-  <a href="search">Search items</a>
-  <a href="additems">Add A items</a>
-  <a href="listall">List itemss</a>
-  <a href="register">Register</a>
-  <a href="login">Login Page</a>
-  <a href="logout">Log Out</a>
-  <a href="api">items API</a>
-  <link rel="stylesheet"  type="text/css" href="main.css" />
+  <link rel="stylesheet" type="text/css" href="main.css" />
+  <style>
+    body {
+        background-image: url('http://www.doc.gold.ac.uk/usr/208/images/blurred_bar.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    .nav-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      font-size: 18px;
+      background-color: transparent;
+      border: none;
+      color: white;
+      cursor: pointer;
+      width: 100px;
+      height: 50px;
+      outline: none;
+      font-weight: bold;
+    }
+    .nav-button:hover {
+      color: #007bff;
+      text-decoration: underline;
+    }
+    .button-container {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+    }
+    main {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: minmax(100px, auto);
+      gap: 10px;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      margin-top: 20px;
+    }
+    .logo img {
+      max-width: 200px;
+      max-height: 100px;
+      height: auto;
+      width: auto;
+    }
+    .heading-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      flex-direction: column;
+    }
+    h2 {
+      color: white;
+      margin-bottom: 20px;
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const yesButton = document.getElementById('yes-button');
+      const noButton = document.getElementById('no-button');
 
+      yesButton.addEventListener('click', () => {
+        document.getElementById('logout-form').submit();
+      });
+
+      noButton.addEventListener('click', () => {
+        window.location.href = 'index';
+      });
+    });
+  </script>
 </head>
-
-
+<div class="logo">
+  <img src="/images/scannerlogo.png" alt="logo">
+</div>
 <body>
-  <form method="POST" action="/loggedout">
-      <input type="submit" value="Logout" />
-    </form>
-
-
-
+  <h2>Are you sure you want to logout?</h2>
+  <form id="logout-form" method="POST" action="/loggedout">
+    <div class="button-container">
+      <button type="button" id="yes-button" class="nav-button">Yes</button>
+      <button type="button" id="no-button" class="nav-button">No</button>
+    </div>
+  </form>
 </body>
 </html>
