@@ -1,56 +1,101 @@
 <!doctype html>
 <html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="main.css" />
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-
-<body>
-  
-  <main>
-    <div class="login-container">
-      <h1>Register</h1>
-      <form id="login-form" method="POST" action="/registered">
-        <div class="form-group">
-          <label for="username">Username:</label>
-          <input type="username" id="username" name="username" required>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="main.css" />
+    <style>
+      body {
+        background-image: url('http://www.doc.gold.ac.uk/usr/208/images/barback.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+      .login-container {
+        max-width: 90%;
+        margin: 0 auto;
+        background-color: rgba(255, 255, 255, 0);
+        border: none;
+      }
+      .login-container h1{
+        color: white;
+        border: none;
+      }
+      .form-group label {
+        font-size: 18px;
+        font-style: initial;
+        color: white;
+      }
+      .register-link {
+        font-size: 18px;
+        font-style: initial;
+        color: white;
+      }
+      .register-link a {
+        display: inline-block;
+        background-color: rgb(0, 247, 255);
+        color: white;
+        font-size: 16px;
+        text-decoration: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        margin-left: 5px;
+      }
+      .register-link a:hover {
+        background-color: #ff0000;
+      }
+      .logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-top: 20px;
+      }
+      .logo img {
+        max-width: 200px;
+        max-height: 100px;
+        height: auto;
+        width: auto;
+      }
+      @media screen and (max-width: 480px) {
+        .login-container {
+          max-width: 100%;
+          padding: 0 20px;
+          border: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="logo">
+        <img src="/images/scannerlogo.png" alt="logo">
+      </div>
+      <div class="login-container">
+        <h1>Register</h1>
+        <form id="register-form" method="POST" action="/registered">
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="username" id="username" name="username" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+          </div>
+          <div class="form-group">
+            <label for="password-confirm">Confirm Password:</label>
+            <input type="password" id="password-confirm" name="password-confirm" required>
+          </div>
+          <button type="submit">Register</button>
+        </form>
+        <div id="message-box" style="display:none;"></div>
+        <div class="register-link">
+          <p>Already have an account? <a href="/login">Login here</a></p>
         </div>
-        <div class="form-group">
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-          <label for="password">Password:</label>
-          <input type="password" id="password" name="password" required>
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-      <div id="message-box" style="display:none;"></div>
-
-    </div>
-  </main>
-  <script>
-    $(document).ready(function() {
-      $('#login-form').on('submit', function(e) {
-        e.preventDefault();
-        $.ajax({
-          url: '/registered',
-          method: 'POST',
-          data: $(this).serialize(),
-          success: function(response) {
-            if (response.success) {
-              $('#message-box').text(response.message).show();
-            } else {
-              $('#message-box').text(response.errors.map(err => err.msg).join(', ')).show();
-            }
-          },
-          error: function(jqXHR, textStatus, errorThrown) {
-            $('#message-box').text('An error occurred: ' + textStatus).show();
-          }
-        });
-      });
-    });
-</script>
-</body>
+      </div>
+    </main>
+  </body>
 </html>
