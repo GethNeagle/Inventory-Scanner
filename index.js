@@ -12,7 +12,7 @@ var phpExpress = require('php-express')({
 
 // Create the expregit pushss application object
 const app = express();
-const port = 8000
+const port = 8000;
 app.use(bodyParser.urlencoded({ extended: true }))
 
 // Body-parser middleware
