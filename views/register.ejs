@@ -118,7 +118,7 @@
         data: $(this).serialize(),
         success: function(response) {
           if (response.success) {
-            window.location.href = '/login'; // Redirect to the login page
+            window.location.href = 'http://www.doc.gold.ac.uk/usr/208/login'; // Redirect to the login page
           } else {
             $('#message-box').text(response.errors.map(err => err.msg).join(', ')).show();
           }
