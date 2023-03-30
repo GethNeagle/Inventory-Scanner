@@ -146,7 +146,7 @@ module.exports = function(app, shopData) {
                   if (err) {
                     return console.error(err.message);
                   } else {
-                    res.json({ success: true, message: 'You are now registered!' });
+                    res.json({ success: true, message: 'Registration successful.' }); // Send success response
                   }
                 });
               }
