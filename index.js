@@ -10,7 +10,7 @@ const bodyparser = require('body-parser')
 var phpExpress = require('php-express')({
   binPath: 'php'});
 
-// Create the express application object
+// Create the expregit pushss application object
 const app = express();
 const port = 8000
 app.use(bodyParser.urlencoded({ extended: true }))

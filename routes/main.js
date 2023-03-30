@@ -20,8 +20,8 @@ module.exports = function(app, shopData) {
     app.get('/',function(req,res){
         res.render('login.ejs', shopData)
     });
-    app.get('/about',function(req,res){
-        res.render('about.ejs', shopData);
+    app.get('/export',function(req,res){
+        res.render('export.ejs', shopData);
     });
 
     app.get('/index',function(req,res){

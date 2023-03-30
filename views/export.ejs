@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Inventory List</title>
+  </head>
+  <body>
+    <p>Export List</p>
+
+    <button id="export-btn">Export List</button>
+
+    <script>
+      const exportBtn = document.getElementById('export-btn');
+      exportBtn.addEventListener('click', () => {
+        fetch('export')
+          .then(response => response.blob())
+          .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'inventory.xlsx';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+          });
+      });
+    </script>
+  </body>
+</html>
