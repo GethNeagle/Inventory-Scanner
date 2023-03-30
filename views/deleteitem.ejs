@@ -107,7 +107,7 @@
     <script>
       // Fetch all items and populate the table
       async function fetchItems() {
-        const response = await fetch('/api/items');
+        const response = await fetch('api/items');
         const items = await response.json();
         const tableBody = document.querySelector('tbody');
 
