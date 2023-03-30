@@ -1,30 +1,161 @@
 <!doctype html>
 <html>
   <head>
-    <a href="index">Home</a>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="main.css" />
+    <title>Delete Item</title>
+    <style>
+      body {
+        background-image: url('http://www.doc.gold.ac.uk/usr/208/images/barback.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      header {
+        background-color: #333;
+        padding: 10px;
+        text-align: center;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        padding: 5px 10px;
+        display: inline-block;
+      }
+
+      main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+
+      h1 {
+        color: white;
+        font-size: 40px;
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      table {
+        background-color: white;
+        border-collapse: collapse;
+        border-radius: 5px;
+        margin-bottom: 30px;
+        width: 80%;
+        max-width: 500px;
+      }
+
+      th {
+        background-color: #333;
+        color: white;
+        font-weight: bold;
+        padding: 10px;
+        text-align: left;
+      }
+
+      td {
+        border-bottom: 1px solid #ccc;
+        padding: 10px;
+        text-align: left;
+      }
+
+      .delete-button {
+        background-color: red;
+        border: none;
+        color: white;
+        font-weight: bold;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .delete-button:hover {
+        background-color: #ff0000;
+      }
+
+      @media screen and (max-width: 480px) {
+        h1 {
+          font-size: 30px;
+        }
+      }
+    </style>
   </head>
   <body>
-    <form method="POST" action="/deleted">
-      <p>Item:</p>
-      <select id="itemDropdown" name="item_name">
-        <!-- Items will be populated here -->
-      </select>
-      <br />
-      <input type="submit" value="Delete Item" />
-    </form>
+    <header>
+      <nav>
+        <a href="index">Home</a>
+      </nav>
+    </header>
+    <main>
+      <h1>Delete Item</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Items from database will be here -->
+        </tbody>
+      </table>
+    </main>
     <script>
-      // Fetch all items and populate the dropdown menu
+      // Fetch all items and populate the table
       async function fetchItems() {
         const response = await fetch('/api/items');
         const items = await response.json();
-        const dropdown = document.getElementById('itemDropdown');
+        const tableBody = document.querySelector('tbody');
 
         items.forEach((item) => {
-          const option = document.createElement('option');
-          option.value = item.name;
-          option.text = item.name;
-          dropdown.add(option);
+          const row = document.createElement('tr');
+          const itemNameCell = document.createElement('td');
+          const deleteButtonCell = document.createElement('td');
+          const deleteButton = document.createElement('button');
+
+          itemNameCell.textContent = item.name;
+          deleteButton.textContent = 'Delete';
+          deleteButton.dataset.itemName = item.name;
+
+          deleteButton.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const itemName = e.target.dataset.itemName;
+
+            try {
+              const response = await fetch('/deleted', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ item_name: itemName }),
+              });
+
+              if (response.status === 200) {
+                // Remove item from table
+                const table = document.querySelector('table');
+                const rows = table.rows;
+                for (let i = 1; i < rows.length; i++) {
+                  if (rows[i].cells[0].textContent === itemName) {
+                    table.deleteRow(i);
+                    break;
+                  }
+                }
+              } else {
+                console.error('Unable to delete item');
+              }
+            } catch (error) {
+              console.error('Error:', error);
+            }
+          });
+
+          deleteButtonCell.appendChild(deleteButton);
+          row.appendChild(itemNameCell);
+          row.appendChild(deleteButtonCell);
+          tableBody.appendChild(row);
         });
       }
 

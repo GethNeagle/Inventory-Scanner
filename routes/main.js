@@ -20,9 +20,13 @@ module.exports = function(app) {
     app.get('/',function(req,res){
         res.render('login.ejs')
     });
-    app.get('/exportitems',function(req,res){
-        res.render('exportitems.ejs');
-    });
+    app.get('/exportitems', function (req, res) {
+      if (req.session.loggedin){
+          res.render('exportitems.ejs');
+      }else{
+          res.render('notloggedin.ejs')
+      }
+   });
 
     app.get('/index', function (req, res) {
       if (req.session.loggedin){
@@ -31,34 +35,14 @@ module.exports = function(app) {
           res.render('notloggedin.ejs')
       }
    });
-    app.get('/reset',function(req,res){
-      res.render('reset.ejs')
-    });
+   app.get('/reset', function (req, res) {
+    if (req.session.loggedin){
+        res.render('reset.ejs');
+    }else{
+        res.render('notloggedin.ejs')
+    }
+ });
 
-
-    app.get('/search',function(req,res){
-        res.render('search.ejs');
-    });
-    app.get('/search-result', function (req, res) {
-        //searching in the database
-        let sqlquery = "SELECT * FROM items WHERE name LIKE '%" + req.query.keyword + "%'"; // query database to get all the itemss
-        // execute sql query
-        db.query(sqlquery, (err, result) => {
-            if (err) {
-                res.redirect('./'); 
-            }
-            //if no errors
-            let newData = Object.assign({}, {availableitemss:result});
-            console.log(JSON.stringify(req.body.keyword))
-            if (newData.availableitemss.length > 0 && req.query.keyword.length > 0 ){
-                res.render('list.ejs', newData)
-
-            }else{
-                res.send("No items")
-            }
-            
-         });        
-    });
 
     app.get('/listall', function(req, res) {
         let sqlquery = "SELECT * FROM items"; // query database to get all the itemss
@@ -74,28 +58,6 @@ module.exports = function(app) {
         });
     });
 
-    app.post('/refinedsearch', function (req, res) {
-        //searching in the database
-        //res.send("You searched for: " + req.query.keyword);
-        console.log(req.body.example);
-        let sqlquery = "SELECT * FROM items WHERE name LIKE '%" + req.body.example+ "%'"; // query database to get all the itemss
-        // execute sql query
-        db.query(sqlquery, (err, result) => {
-            if (err) {
-                res.redirect('./'); 
-            }
-            //if no errors
-            let newData = Object.assign({}, shopData, {availableitemss:result});
-            console.log(JSON.stringify(req.body.keyword))
-            if (newData.availableitemss.length > 0){
-                res.render('list2.ejs', newData)
-
-            }else{
-                res.send("No items")
-            }
-            
-         });        
-    });
 
 
     //gets the register page
@@ -169,9 +131,13 @@ module.exports = function(app) {
 
 
     //renders the items API
-    app.get('/scan', function (req,res) {
-        res.render('scan.ejs');                                                                     
-    });
+    app.get('/scan', function (req, res) {
+      if (req.session.loggedin){
+          res.render('scan.ejs');
+      }else{
+          res.render('notloggedin.ejs')
+      }
+   });
 
     app.get('/get_item_name', (req, res) => {
         const barcode = req.query.barcode_id;
@@ -198,7 +164,7 @@ module.exports = function(app) {
                 res.redirect('./'); 
             }
             //if no errors
-            let newData = Object.assign({}, shopData, {availableitemss:result});
+            let newData = Object.assign({},{availableitemss:result});
             console.log(newData)
             res.json({newData})
          });        
@@ -206,27 +172,16 @@ module.exports = function(app) {
 
 
 
-    //Show list of users on website. Needs to be logged in
-    app.get('/listusers', function(req, res) {
-        // If the user is loggedin
-        if (req.session.loggedin) {
-            let sqlquery = "SELECT * FROM users"; // query database to get all the users
-            // execute sql query
-            db.query(sqlquery, (err, result) => {
-                let newData = Object.assign({}, shopData, {availableUsers:result});
-                res.render('listusers.ejs', newData);
-            });
-        } else {
-            // Not logged in
-            res.send('Please login to view this page!');
-        }
-        //res.end();
-    });
+
 
     //gets logout page    
     app.get('/logout', function (req, res) {
-        res.render('logout.ejs');
-     });
+      if (req.session.loggedin){
+          res.render('logout.ejs');
+      }else{
+          res.render('notloggedin.ejs')
+      }
+   });
 
      //posts logges out - will post an error message if no user is logged in
      app.post('/loggedout', async (req, res) => {
@@ -244,11 +199,7 @@ module.exports = function(app) {
         res.render('login.ejs');
      });
      
-    //  //render login page
-    //  app.get('/', function(req, res) {
-    //     // Render login template
-    //     res.sendFile(path.join(__dirname + '/loggedin'));
-    // });
+
 
     //WHen user has enetered details, will check if correct and log in user.
     app.post('/loggedin', (req, res) => {
@@ -282,13 +233,12 @@ module.exports = function(app) {
 
     //renders additems page
     app.get('/additems', function (req, res) {
-        //if (req.session.loggedin){
-            res.render('additems.ejs');
-        //}else{
-            //if no users logged in, will prompt user to log in
-        //    res.send("Please log in");
-       // }
-     });
+      if (req.session.loggedin){
+          res.render('additems.ejs');
+      }else{
+          res.render('notloggedin.ejs')
+      }
+   });
 
      app.get('/updateitems', function (req,res) {
         var name = req.body.name;
