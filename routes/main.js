@@ -386,13 +386,12 @@ module.exports = function(app) {
     
         // Save the workbook and send it as a response
         workbook.xlsx.writeBuffer().then((buffer) => {
-          res.setHeader('Content-Disposition', 'attachment; filename=inventory.xlsx');
-          //res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-          res.attachment('inventory.xlsx');
+          res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+          res.setHeader('Content-Disposition', 'attachment; filename=inventory.xlsx');  // Added Content-Disposition
           res.send(buffer);
         }).catch((err) => {
-          console.error("Error writting buffer: ", err);
-        })
+          console.error("Error writing buffer: ", err);  // Error handling for writeBuffer promise
+        });
       });
     });
 
