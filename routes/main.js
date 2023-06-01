@@ -390,7 +390,9 @@ module.exports = function(app) {
           //res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
           res.attachment('inventory.xlsx');
           res.send(buffer);
-        });
+        }).catch((err) => {
+          console.error("Error writting buffer: ", err);
+        })
       });
     });
 
