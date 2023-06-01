@@ -84,6 +84,7 @@
           });
       }
     }
+  
     function showInventory() {
       const name = document.getElementById('name').value;
       const quantity = document.getElementById('quantity').value;
@@ -93,6 +94,19 @@
       const quantityCell = row.insertCell(1);
       nameCell.innerHTML = name;
       quantityCell.innerHTML = quantity;
+    }
+
+    function resetForm() {
+      document.getElementById('barcode_id').value = '';
+      document.getElementById('name').value = '';
+      document.getElementById('quantity').value = '';
+    }
+    
+    function onSubmitForm(e) {
+      e.preventDefault();
+      showInventory();
+      resetForm();
+      document.querySelector('form').submit();
     }
   </script>
 </head>
@@ -105,7 +119,7 @@
     <input type="text" id="name" name="name" required readonly>
     <label for="quantity">Quantity:</label>
     <input type="number" id="quantity" name="quantity" required>
-    <button type="submit" onclick="showInventory()">Add Inventory</button>
+    <button type="submit" onclick="onSubmitForm(event)">Add Inventory</button>
   </form>
 
   <h2>Inventory</h2>
@@ -117,7 +131,6 @@
   </table>
   <footer>
     <a href="/index">Home</a>
-
   </footer>
 </body>
 </html>
