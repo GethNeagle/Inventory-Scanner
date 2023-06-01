@@ -134,7 +134,7 @@
                 body: JSON.stringify({ item_name: itemName }),
               });
 
-              if (response.status === 200) {
+              if (response.ok) {
                 // Remove item from table
                 const table = document.querySelector('table');
                 const rows = table.rows;
