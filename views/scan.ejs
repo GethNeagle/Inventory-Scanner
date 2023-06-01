@@ -114,7 +114,7 @@
   <h1>Enter Item Details</h1>
   <form method="POST" action="/addinventory">
     <label for="barcode_id">Barcode ID:</label>
-    <input type="text" id="barcode_id" name="barcode_id" required oninput="fetchItemName()">
+    <input type="text" id="barcode_id" name="barcode_id" required oninput="fetchItemName()" autofocus>
     <label for="name">Item Name:</label>
     <input type="text" id="name" name="name" required readonly>
     <label for="quantity">Quantity:</label>
