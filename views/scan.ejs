@@ -81,6 +81,7 @@
             const strippedName = itemName.replace(/(<([^>]+)>)/gi, '');
             document.getElementById('name').value = strippedName;
             document.getElementById('message').textContent = `Item name for barcode ID ${barcode}: ${strippedName}.`;
+            document.getElementById('quantity').focus();
           });
       }
     }
