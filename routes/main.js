@@ -342,7 +342,7 @@ module.exports = function(app) {
           return;
         }
     
-        res.redirect('/deleteitem');
+        res.redirect('http://www.doc.gold.ac.uk/usr/208/deleteitem');
       });
     });
     
