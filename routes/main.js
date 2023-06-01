@@ -386,9 +386,9 @@ module.exports = function(app) {
     
         // Save the workbook and send it as a response
         workbook.xlsx.writeBuffer().then((buffer) => {
-          //res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+          res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
           res.attachment('inventory.xlsx');
-          //res.send(buffer);
+          res.send(buffer);
         });
       });
     });
