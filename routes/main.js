@@ -395,52 +395,44 @@ module.exports = function(app) {
     //   });
     // });
 
-
-  app.get('/exportlist', async (req, res) => {
-    let sqlquery = 'SELECT name, price, quantity FROM items';
-
-    try {
-      const rows = await db.query(sqlquery);
-
-      console.log(rows);  // Log rows to console to debug
-
-      // Map rows to an array of objects with keys that match the column names
-      const data = rows.map(row => {
-        return {
-          Name: row.name,
-          Price: row.price,
-          Quantity: row.quantity,
-          Value: row.price * row.quantity
-        }
+    app.get('/exportlist', (req, res) => {
+      let sqlquery = 'SELECT name, price, quantity FROM items';
+      console.log("here");
+    
+      db.query(sqlquery, (err, rows) => {
+        if (err) throw err;
+    
+        // Map rows to an array of objects with keys that match the column names
+        const data = rows.map(row => {
+          return {
+            Name: row.name,
+            Price: row.price,
+            Quantity: row.quantity,
+            Value: row.price * row.quantity
+          }
+        });
+    
+        // Prepare data for text file
+        let textData = "Name, Price, Quantity, Value\n";  // Header
+    
+        // Add data to the textData string
+        data.forEach((item) => {
+          textData += `${item.Name}, ${item.Price}, ${item.Quantity}, ${item.Value}\n`;
+        });
+    
+        // Convert to buffer
+        const buffer = Buffer.from(textData, 'utf8');
+        
+        // Set headers and send response
+        res.setHeader('Content-Type', 'text/plain');
+        res.setHeader('Content-Disposition', 'attachment; filename=inventory.txt'); 
+        res.send(buffer);
       });
+    });
+    
 
-      // Create a new workbook and worksheet
-      const workbook = new ExcelJS.Workbook();
-      const worksheet = workbook.addWorksheet('Inventory List');
 
-      // Add column headers
-      worksheet.columns = [
-        { header: 'Name', key: 'Name', width: 10 },
-        { header: 'Price', key: 'Price', width: 10 },
-        { header: 'Quantity', key: 'Quantity', width: 10 },
-        { header: 'Value', key: 'Value', width: 10 }
-      ];
 
-      // Add data to the worksheet
-      data.forEach((item) => {
-        worksheet.addRow(item);
-      });
-
-      // Save the workbook and send it as a response
-      const buffer = await workbook.xlsx.writeBuffer();
-
-      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-      res.setHeader('Content-Disposition', 'attachment; filename=inventory.xlsx');  
-      res.send(buffer);
-    } catch (err) {
-      console.error("Error: ", err);
-    }
-  });
 
 
 
